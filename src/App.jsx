@@ -28,6 +28,14 @@ const USER_PROFILE = {
 
 // ─── الأسهم ───────────────────────────────────────────────────────────────────
 const STOCKS_LIST = [
+  { symbol: "2222", name: "أرامكو السعودية", sector: "طاقة" },
+  { symbol: "1180", name: "الأهلي السعودي",  sector: "بنوك" },
+  { symbol: "1120", name: "الراجحي",          sector: "بنوك" },
+  { symbol: "2010", name: "سابك",             sector: "بتروكيماويات" },
+  { symbol: "7010", name: "الاتصالات السعودية",sector: "اتصالات" },
+  { symbol: "2380", name: "پترو رابغ",        sector: "بتروكيماويات" },
+  { symbol: "4200", name: "مجموعة تداول",     sector: "مالية" },
+  { symbol: "1211", name: "معادن",            sector: "تعدين" },
   { symbol: "1150", name: "الإنماء",             sector: "بنوك" },
   { symbol: "1302", name: "المتقدمة",            sector: "تقنية" },
   { symbol: "2010", name: "سابك",                sector: "بتروكيماويات" },
