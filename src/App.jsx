@@ -162,7 +162,8 @@ export default function AdvisorBot() {
   const [selected,   setSelected]   = useState(null);
 
   // المحفظة الشخصية
-  const [myStocks,   setMyStocks]   = useState([]); // [{symbol,name,sector,buyPrice,qty}]
+  const [myStocks,   setMyStocks]   = useState(()=>{ try{ const s=localStorage.getItem("myStocks"); return s?JSON.parse(s):[]; }catch{return[];} });
+  useEffect(()=>{ try{ localStorage.setItem("myStocks",JSON.stringify(myStocks)); }catch{} },[myStocks]);
   const [showAddForm,setShowAddForm]= useState(false);
   const [formData,   setFormData]   = useState({symbol:"",buyPrice:"",qty:""});
 
@@ -288,6 +289,24 @@ export default function AdvisorBot() {
   const calc=getPortfolioCalc();
   const buyCount=stocks.filter(s=>s.signal?.label.includes("شراء")).length;
   const sellCount=stocks.filter(s=>s.signal?.label.includes("بيع")).length;
+
+  const [splash, setSplash] = useState(true);
+  useEffect(()=>{ setTimeout(()=>setSplash(false), 2000); },[]);
+
+  if(splash) return(
+    <div style={{height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:"linear-gradient(135deg,#080c18 0%,#0d1b3e 100%)",fontFamily:"'Cairo','Segoe UI',sans-serif"}}>
+      <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet"/>
+      <div style={{width:90,height:90,borderRadius:"50%",background:"linear-gradient(135deg,#1565c0,#0288d1)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:42,marginBottom:20,boxShadow:"0 0 40px #1565c060"}}>🤖</div>
+      <div style={{fontSize:24,fontWeight:900,color:"#4fc3f7",marginBottom:8}}>مستشارك الاستثماري</div>
+      <div style={{fontSize:13,color:"#546e7a",marginBottom:30}}>بوت تداول ذكي للسوق السعودي</div>
+      <div style={{display:"flex",gap:6}}>
+        {[0,1,2].map(i=>(
+          <div key={i} style={{width:8,height:8,borderRadius:"50%",background:"#1565c0",animation:`pulse 1.2s ease-in-out ${i*0.2}s infinite`,opacity:0.7}}/>
+        ))}
+      </div>
+      <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.4}50%{transform:scale(1.4);opacity:1}}`}</style>
+    </div>
+  );
 
   return(
     <div style={{height:"100vh",display:"flex",flexDirection:"column",background:"#080c18",color:"#dde3f0",fontFamily:"'Cairo','Segoe UI',sans-serif",direction:"rtl"}}>
