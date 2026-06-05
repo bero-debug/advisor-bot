@@ -337,13 +337,40 @@ export default function AdvisorBot(){
       <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}} @keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
       {/* BIG background chart — hero visual */}
-      <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
-        <svg width="110%" height="70%" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none" style={{opacity:0.07}}>
-          <polyline points="0,250 50,200 100,220 160,150 220,170 280,100 340,120 400,60" stroke={T.accent} strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
-          <polyline points="0,280 60,240 120,255 180,195 240,210 300,155 360,170 400,120" stroke={T.accent} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+      <div style={{position:"absolute",inset:0,display:"flex",alignItems:"flex-end",justifyContent:"center",paddingBottom:0}}>
+        <svg width="100%" height="75%" viewBox="0 0 400 320" preserveAspectRatio="xMidYMax slice" fill="none">
+          <defs>
+            <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={T.accent} stopOpacity="0.18"/>
+              <stop offset="100%" stopColor={T.accent} stopOpacity="0.04"/>
+            </linearGradient>
+            <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor={T.accent} stopOpacity="0.1"/>
+              <stop offset="60%" stopColor={T.accent} stopOpacity="0.5"/>
+              <stop offset="100%" stopColor={T.accent} stopOpacity="0.9"/>
+            </linearGradient>
+            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={T.accent} stopOpacity="0.12"/>
+              <stop offset="100%" stopColor={T.accent} stopOpacity="0"/>
+            </linearGradient>
+          </defs>
           {/* Bars */}
-          {[[20,200,40],[80,170,40],[140,210,40],[200,140,40],[260,160,40],[320,110,40],[370,130,40]].map(([x,y,w],i)=>(
-            <rect key={i} x={x} y={y} width={w} height={300-y} fill={T.accent} opacity="0.4" rx="4"/>
+          {[[10,210,42],[62,175,42],[114,225,42],[166,148,42],[218,168,42],[270,108,42],[322,130,42],[354,80,42]].map(([x,y,w],i)=>(
+            <rect key={i} x={x} y={y} width={w} height={320-y} fill="url(#barGrad)" rx="6"/>
+          ))}
+          {/* Area fill under line */}
+          <polygon points="0,320 0,245 55,200 110,218 165,148 222,165 278,102 338,118 400,58 400,320" fill="url(#areaGrad)"/>
+          {/* Main rising line */}
+          <polyline points="0,245 55,200 110,218 165,148 222,165 278,102 338,118 400,58" stroke="url(#lineGrad)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+          {/* Dots on line */}
+          {[[165,148],[278,102],[400,58]].map(([x,y],i)=>(
+            <circle key={i} cx={x} cy={y} r={i===2?6:4} fill={T.accent} opacity={i===2?0.9:0.5}/>
+          ))}
+          {/* Last dot glow */}
+          <circle cx="400" cy="58" r="12" fill={T.accent} opacity="0.15"/>
+          {/* Grid lines subtle */}
+          {[80,140,200,260].map((y,i)=>(
+            <line key={i} x1="0" y1={y} x2="400" y2={y} stroke={T.accent} strokeWidth="0.5" opacity="0.08"/>
           ))}
         </svg>
       </div>
@@ -370,15 +397,9 @@ export default function AdvisorBot(){
           تحليل ذكي للأسهم السعودية وتوصيات مخصصة لملفك الاستثماري
         </div>
 
-        {/* Start button */}
-        <button onClick={()=>setSplash(false)} style={{width:"100%",background:T.accentGrad,border:"none",borderRadius:20,padding:"18px",color:"white",fontSize:17,fontFamily:"Cairo",fontWeight:900,cursor:"pointer",boxShadow:`0 8px 30px ${T.accentShadow}`,display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
-          <span>ابدأ الآن</span>
-          <span style={{fontSize:20}}>←</span>
-        </button>
-
-        {/* Dots */}
-        <div style={{display:"flex",justifyContent:"center",gap:8,marginTop:24}}>
-          {[0,1,2].map(i=><div key={i} style={{width:i===0?24:8,height:8,borderRadius:4,background:T.accent,opacity:i===0?1:0.3}}/>)}
+        {/* Loading dots */}
+        <div style={{display:"flex",gap:8,marginTop:8}}>
+          {[0,1,2].map(i=><div key={i} style={{width:8,height:8,borderRadius:"50%",background:T.accent,opacity:0.35,animation:`pulse 1.4s ease-in-out ${i*0.2}s infinite`}}/>)}
         </div>
       </div>
     </div>
