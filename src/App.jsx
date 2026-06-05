@@ -151,21 +151,10 @@ function SparkLine({prices,positive}){
   const W=120,H=40,mn=Math.min(...prices),mx=Math.max(...prices),rng=mx-mn||1;
   const pts=prices.map((p,i)=>`${(i/(prices.length-1))*W},${H-((p-mn)/rng)*(H-4)-2}`).join(" ");
   const col=positive?"#40916c":"#d62828";
-  const last=prices[prices.length-1],first=prices[0];
-  const pct=((last-first)/first*100).toFixed(1);
   return(
-    <div style={{position:"relative"}}>
-      <svg viewBox={`0 0 ${W} ${H}`} style={{width:"100%",height:40}}>
-        <defs>
-          <linearGradient id={`sg${positive}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={col} stopOpacity="0.15"/>
-            <stop offset="100%" stopColor={col} stopOpacity="0"/>
-          </linearGradient>
-        </defs>
-        <polygon points={`0,${H} ${pts} ${W},${H}`} fill={`url(#sg${positive})`}/>
-        <polyline points={pts} fill="none" stroke={col} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/>
-      </svg>
-    </div>
+    <svg viewBox={`0 0 ${W} ${H}`} style={{width:"100%",height:40,display:"block"}}>
+      <polyline points={pts} fill="none" stroke={col} strokeWidth="2.2" strokeLinejoin="round" strokeLinecap="round"/>
+    </svg>
   );
 }
 
