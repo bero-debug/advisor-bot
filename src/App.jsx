@@ -1,5 +1,98 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
+
+// ─── الثيمات ──────────────────────────────────────────────────────────────────
+const THEMES = {
+  gold: {
+    name:"ذهبي",
+    emoji:"🟡",
+    bg:"linear-gradient(160deg,#fdf6ec 0%,#fef9f0 60%,#fdf0dc 100%)",
+    card:"rgba(255,255,255,0.85)",
+    header:"rgba(255,255,255,0.85)",
+    accent:"#e8a030",
+    accentDark:"#c87d0a",
+    accentGrad:"linear-gradient(135deg,#e8a030,#c87d0a)",
+    accentShadow:"#e8a03035",
+    accentBorder:"rgba(232,160,48,0.25)",
+    accentBg:"#fff8ee",
+    accentLight:"#f9f5ef",
+    tabActive:"#c87d0a",
+    tabBorder:"#e8a030",
+    inputBg:"#f9f5ef",
+    text:"#1a1a1a",
+    subtext:"#b09070",
+    divider:"rgba(232,160,48,0.1)",
+    splashBg:"linear-gradient(160deg,#fdf6ec 0%,#fef9f0 60%,#fdf0dc 100%)",
+    disclaimer:"rgba(255,255,255,0.6)",
+  },
+  blue: {
+    name:"سماوي",
+    emoji:"🔵",
+    bg:"linear-gradient(160deg,#f0f7ff 0%,#e8f4fd 50%,#deeeff 100%)",
+    card:"rgba(255,255,255,0.88)",
+    header:"rgba(255,255,255,0.88)",
+    accent:"#0a84ff",
+    accentDark:"#006edb",
+    accentGrad:"linear-gradient(135deg,#0a84ff,#006edb)",
+    accentShadow:"#0a84ff30",
+    accentBorder:"rgba(10,132,255,0.22)",
+    accentBg:"#e8f3ff",
+    accentLight:"#f0f7ff",
+    tabActive:"#006edb",
+    tabBorder:"#0a84ff",
+    inputBg:"#f0f7ff",
+    text:"#1a1a2e",
+    subtext:"#6e8aaa",
+    divider:"rgba(10,132,255,0.1)",
+    splashBg:"linear-gradient(160deg,#deeeff 0%,#e8f4fd 60%,#f0f7ff 100%)",
+    disclaimer:"rgba(255,255,255,0.65)",
+  },
+  green: {
+    name:"زمردي",
+    emoji:"🟢",
+    bg:"linear-gradient(160deg,#f0faf4 0%,#e8f5ed 50%,#dff2e8 100%)",
+    card:"rgba(255,255,255,0.88)",
+    header:"rgba(255,255,255,0.88)",
+    accent:"#30d158",
+    accentDark:"#1a9e3f",
+    accentGrad:"linear-gradient(135deg,#30d158,#1a9e3f)",
+    accentShadow:"#30d15830",
+    accentBorder:"rgba(48,209,88,0.22)",
+    accentBg:"#e8f9ee",
+    accentLight:"#f0faf4",
+    tabActive:"#1a9e3f",
+    tabBorder:"#30d158",
+    inputBg:"#f0faf4",
+    text:"#0f2a1a",
+    subtext:"#5a8a6a",
+    divider:"rgba(48,209,88,0.1)",
+    splashBg:"linear-gradient(160deg,#dff2e8 0%,#e8f5ed 60%,#f0faf4 100%)",
+    disclaimer:"rgba(255,255,255,0.65)",
+  },
+  dark: {
+    name:"ليلي",
+    emoji:"⚫",
+    bg:"linear-gradient(160deg,#0f1117 0%,#141820 60%,#0d1015 100%)",
+    card:"rgba(30,35,50,0.9)",
+    header:"rgba(20,24,36,0.95)",
+    accent:"#e8a030",
+    accentDark:"#c87d0a",
+    accentGrad:"linear-gradient(135deg,#e8a030,#c87d0a)",
+    accentShadow:"#e8a03030",
+    accentBorder:"rgba(232,160,48,0.2)",
+    accentBg:"rgba(232,160,48,0.1)",
+    accentLight:"rgba(30,35,50,0.8)",
+    tabActive:"#e8a030",
+    tabBorder:"#e8a030",
+    inputBg:"rgba(255,255,255,0.06)",
+    text:"#f0f0f0",
+    subtext:"#8a8a9a",
+    divider:"rgba(255,255,255,0.07)",
+    splashBg:"linear-gradient(160deg,#0f1117 0%,#141820 100%)",
+    disclaimer:"rgba(0,0,0,0.3)",
+  },
+};
+
 // ─── ملف المستخدم ─────────────────────────────────────────────────────────────
 const USER_PROFILE = {
   level:"مبتدئ", goal:"أرباح سريعة (مضاربة)", risk:"منخفض",
@@ -122,8 +215,8 @@ function ChatBubble({msg}){
   const isUser=msg.role==="user";
   return(
     <div style={{display:"flex",justifyContent:isUser?"flex-start":"flex-end",marginBottom:12,gap:8}}>
-      {!isUser&&<div style={{width:32,height:32,borderRadius:"50%",background:"linear-gradient(135deg,#e8a030,#c87d0a)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,flexShrink:0,boxShadow:"0 2px 8px #e8a03040"}}>🤖</div>}
-      <div style={{maxWidth:"78%",background:isUser?"linear-gradient(135deg,#e8a030,#d4920a)":"#ffffff",borderRadius:isUser?"18px 18px 18px 4px":"18px 18px 4px 18px",padding:"12px 16px",fontSize:13,lineHeight:1.8,color:isUser?"#ffffff":"#2d2d2d",boxShadow:isUser?"0 4px 15px #e8a03030":"0 2px 12px rgba(0,0,0,0.06)",whiteSpace:"pre-wrap",fontFamily:"'Cairo',sans-serif"}}>
+      {!isUser&&<div style={{width:32,height:32,borderRadius:"50%",background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,flexShrink:0,boxShadow:`0 2px 8px ${T.accentShadow}`}}>🤖</div>}
+      <div style={{maxWidth:"78%",background:isUser?T.accentGrad:T.card,borderRadius:isUser?"18px 18px 18px 4px":"18px 18px 4px 18px",padding:"12px 16px",fontSize:13,lineHeight:1.8,color:isUser?"#ffffff":T.text,boxShadow:isUser?`0 4px 15px ${T.accentShadow}`:"0 2px 12px rgba(0,0,0,0.06)",whiteSpace:"pre-wrap",fontFamily:"'Cairo',sans-serif"}}>
         {msg.content}
       </div>
       {isUser&&<div style={{width:32,height:32,borderRadius:"50%",background:"#f0ebe0",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,flexShrink:0}}>👤</div>}
@@ -146,6 +239,10 @@ export default function AdvisorBot(){
   const [messages,setMessages]=useState([{role:"assistant",content:`أهلاً! أنا مستشارك الاستثماري 🤖\n\nشفت وضعك: مبتدئ، عندك خسارة في محفظتك، سيولتك محدودة، وعندك صبر سنة فأكثر.\n\n📌 ابدأ بتبويب "محفظتي" وأضف أسهمك مع سعر الشراء\n\nأو اسألني أي سؤال مباشرة! 👇`}]);
   const [chatInput,setChatInput]=useState("");
   const [chatLoading,setChatLoading]=useState(false);
+  const [themeKey,setThemeKey]=useState(()=>localStorage.getItem("advisorTheme")||"gold");
+  const T=THEMES[themeKey]||THEMES.gold;
+  const [showThemePicker,setShowThemePicker]=useState(false);
+  useEffect(()=>{localStorage.setItem("advisorTheme",themeKey);},[themeKey]);
   const [splash,setSplash]=useState(true);
   const chatEndRef=useRef(null);
 
@@ -235,45 +332,69 @@ export default function AdvisorBot(){
 
   // ─── Splash ─────────────────────────────────────────────────────────────────
   if(splash)return(
-    <div style={{height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:"linear-gradient(160deg,#fdf6ec 0%,#fef9f0 60%,#fdf0dc 100%)",fontFamily:"'Cairo',sans-serif",direction:"rtl",position:"relative",overflow:"hidden"}}>
+    <div style={{height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:T.splashBg,fontFamily:"'Cairo',sans-serif",direction:"rtl",position:"relative",overflow:"hidden"}}>
       <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
-      {/* Decorative circles */}
-      <div style={{position:"absolute",top:-60,right:-60,width:220,height:220,borderRadius:"50%",background:"radial-gradient(circle,#e8a03025,transparent 70%)"}}/>
-      <div style={{position:"absolute",bottom:-40,left:-40,width:180,height:180,borderRadius:"50%",background:"radial-gradient(circle,#e8a03020,transparent 70%)"}}/>
-      <div style={{width:96,height:96,borderRadius:28,background:"linear-gradient(135deg,#e8a030,#c87d0a)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:44,marginBottom:24,boxShadow:"0 16px 48px #e8a03040"}}>🤖</div>
-      <div style={{fontSize:26,fontWeight:900,color:"#1a1a1a",marginBottom:6}}>مستشارك الاستثماري</div>
-      <div style={{fontSize:14,color:"#9a8a70",marginBottom:40}}>بوت تداول ذكي للسوق السعودي</div>
+      <div style={{position:"absolute",top:-80,right:-80,width:260,height:260,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`}}/>
+      <div style={{position:"absolute",bottom:-60,left:-60,width:200,height:200,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`}}/>
+      {/* Modern trading icon */}
+      <div style={{width:100,height:100,borderRadius:28,background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:24,boxShadow:`0 16px 48px ${T.accentShadow}`}}>
+        <svg width="54" height="54" viewBox="0 0 54 54" fill="none">
+          <polyline points="4,42 14,28 22,34 32,16 42,22 50,8" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+          <circle cx="50" cy="8" r="4" fill="white"/>
+          <circle cx="32" cy="16" r="3" fill="rgba(255,255,255,0.7)"/>
+          <circle cx="14" cy="28" r="3" fill="rgba(255,255,255,0.7)"/>
+          <rect x="4" y="46" width="46" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+        </svg>
+      </div>
+      <div style={{fontSize:26,fontWeight:900,color:T.text,marginBottom:6}}>مستشارك الاستثماري</div>
+      <div style={{fontSize:14,color:T.subtext,marginBottom:40}}>بوت تداول ذكي للسوق السعودي</div>
       <div style={{display:"flex",gap:8}}>
-        {[0,1,2].map(i=><div key={i} style={{width:8,height:8,borderRadius:"50%",background:"#e8a030",opacity:0.4,animation:`pulse 1.4s ease-in-out ${i*0.2}s infinite`}}/>)}
+        {[0,1,2].map(i=><div key={i} style={{width:8,height:8,borderRadius:"50%",background:T.accent,opacity:0.4,animation:`pulse 1.4s ease-in-out ${i*0.2}s infinite`}}/>)}
       </div>
       <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}}`}</style>
     </div>
   );
 
   return(
-    <div style={{height:"100vh",display:"flex",flexDirection:"column",background:"linear-gradient(160deg,#fdf6ec 0%,#fef9f0 60%,#fdf0dc 100%)",fontFamily:"'Cairo','Segoe UI',sans-serif",direction:"rtl"}}>
+    <div style={{height:"100vh",display:"flex",flexDirection:"column",background:T.bg,fontFamily:"'Cairo','Segoe UI',sans-serif",direction:"rtl"}}>
       <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div style={{background:"rgba(255,255,255,0.85)",borderBottom:"1px solid rgba(232,160,48,0.15)",padding:"12px 16px",flexShrink:0,backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)"}}>
+      <div style={{background:T.header,borderBottom:`1px solid ${T.divider}`,padding:"12px 16px",flexShrink:0,backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:8,flexWrap:"wrap"}}>
           <div style={{display:"flex",alignItems:"center",gap:10}}>
-            <div style={{width:38,height:38,borderRadius:12,background:"linear-gradient(135deg,#e8a030,#c87d0a)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,boxShadow:"0 4px 12px #e8a03035"}}>🤖</div>
+            <div style={{width:38,height:38,borderRadius:12,background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 4px 12px ${T.accentShadow}`}}><svg width="22" height="22" viewBox="0 0 54 54" fill="none"><polyline points="4,42 14,28 22,34 32,16 42,22 50,8" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/><circle cx="50" cy="8" r="4" fill="white"/></svg></div>
             <div>
-              <div style={{fontSize:15,fontWeight:900,color:"#1a1a1a"}}>مستشارك الاستثماري</div>
-              <div style={{fontSize:10,color:"#b09070",display:"flex",gap:5,alignItems:"center"}}>
-                <span style={{color:"#e8a030",fontWeight:700}}>مبتدئ</span>·<span>مضاربة</span>·<span>مخاطرة منخفضة</span>
+              <div style={{fontSize:15,fontWeight:900,color:T.text}}>مستشارك الاستثماري</div>
+              <div style={{fontSize:10,color:T.subtext,display:"flex",gap:5,alignItems:"center"}}>
+                <span style={{color:T.accent,fontWeight:700}}>مبتدئ</span>·<span>مضاربة</span>·<span>مخاطرة منخفضة</span>
               </div>
             </div>
           </div>
           <div style={{display:"flex",gap:6,alignItems:"center"}}>
+            {/* Theme picker */}
+            <div style={{position:"relative"}}>
+              <button onClick={()=>setShowThemePicker(p=>!p)} style={{background:T.card,border:`1px solid ${T.accentBorder}`,borderRadius:20,padding:"5px 10px",cursor:"pointer",fontSize:13,fontFamily:"Cairo",color:T.text,display:"flex",alignItems:"center",gap:4}}>
+                {THEMES[themeKey].emoji} <span style={{fontSize:10,color:T.subtext}}>ثيم</span>
+              </button>
+              {showThemePicker&&(
+                <div style={{position:"absolute",top:36,left:0,background:T.card,border:`1px solid ${T.accentBorder}`,borderRadius:16,padding:"10px",boxShadow:"0 8px 30px rgba(0,0,0,0.12)",zIndex:100,display:"flex",gap:8,backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)"}}>
+                  {Object.entries(THEMES).map(([key,th])=>(
+                    <button key={key} onClick={()=>{setThemeKey(key);setShowThemePicker(false);}} style={{background:themeKey===key?T.accentBg:"transparent",border:`2px solid ${themeKey===key?T.accent:"transparent"}`,borderRadius:12,padding:"8px 10px",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:4,minWidth:52}}>
+                      <span style={{fontSize:18}}>{th.emoji}</span>
+                      <span style={{fontSize:10,color:T.text,fontFamily:"Cairo",fontWeight:themeKey===key?700:400}}>{th.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <div style={{background:market.open?"#e8f5e9":"#fff0f0",border:`1px solid ${market.open?"#a5d6a7":"#ffcdd2"}`,borderRadius:20,padding:"3px 10px",fontSize:10,fontWeight:700,color:market.open?"#2e7d32":"#c62828"}}>
               {market.open?"● مفتوح":"● مغلق"}
             </div>
             {apiOk!==null&&<div style={{background:apiOk?"#e3f2fd":"#fff9c4",border:`1px solid ${apiOk?"#90caf9":"#fff176"}`,borderRadius:20,padding:"3px 10px",fontSize:10,color:apiOk?"#1565c0":"#f57f17"}}>
               {apiOk?"📡 حقيقي":"📋 تاريخي"}
             </div>}
-            <button onClick={buildStocks} disabled={fetching} style={{background:fetching?"#f5efe5":"linear-gradient(135deg,#e8a030,#c87d0a)",border:"none",borderRadius:20,color:fetching?"#c0a080":"#fff",padding:"6px 14px",cursor:fetching?"default":"pointer",fontSize:12,fontFamily:"Cairo",fontWeight:700,boxShadow:fetching?"none":"0 4px 12px #e8a03030"}}>
+            <button onClick={buildStocks} disabled={fetching} style={{background:fetching?T.accentLight:T.accentGrad,border:"none",borderRadius:20,color:fetching?T.subtext:"#fff",padding:"6px 14px",cursor:fetching?"default":"pointer",fontSize:12,fontFamily:"Cairo",fontWeight:700,boxShadow:fetching?"none":`0 4px 12px ${T.accentShadow}`}}>
               {fetching?"⏳ ...":"🔄 تحديث"}
             </button>
           </div>
@@ -284,9 +405,9 @@ export default function AdvisorBot(){
       <div style={{background:"rgba(255,255,255,0.7)",borderBottom:"1px solid rgba(232,160,48,0.12)",padding:"0 16px",flexShrink:0,backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)"}}>
         <div style={{display:"flex",gap:0}}>
           {[["stocks","📊 الأسهم"],["portfolio","💼 محفظتي"],["chat","💬 المستشار"]].map(([id,label])=>(
-            <button key={id} onClick={()=>setTab(id)} style={{background:"transparent",border:"none",borderBottom:tab===id?"2.5px solid #e8a030":"2.5px solid transparent",color:tab===id?"#c87d0a":"#b09070",padding:"10px 14px",cursor:"pointer",fontSize:12,fontFamily:"Cairo",fontWeight:tab===id?700:400,transition:"all .2s"}}>
+            <button key={id} onClick={()=>setTab(id)} style={{background:"transparent",border:"none",borderBottom:tab===id?`2.5px solid ${T.tabBorder}`:"2.5px solid transparent",color:tab===id?T.tabActive:T.subtext,padding:"10px 14px",cursor:"pointer",fontSize:12,fontFamily:"Cairo",fontWeight:tab===id?700:400,transition:"all .2s"}}>
               {label}
-              {id==="portfolio"&&myStocks.length>0&&<span style={{background:"#e8a030",borderRadius:10,fontSize:9,padding:"1px 6px",marginRight:4,color:"#fff",fontWeight:700}}>{myStocks.length}</span>}
+              {id==="portfolio"&&myStocks.length>0&&<span style={{background:T.accent,borderRadius:10,fontSize:9,padding:"1px 6px",marginRight:4,color:"#fff",fontWeight:700}}>{myStocks.length}</span>}
             </button>
           ))}
         </div>
@@ -297,7 +418,7 @@ export default function AdvisorBot(){
         {/* ── تبويب الأسهم ─────────────────────────────────────────────── */}
         {tab==="stocks"&&(
           <div style={{flex:1,overflowY:"auto",padding:"14px 14px"}}>
-            {!market.open&&<div style={{background:"rgba(255,248,225,0.9)",border:"1px solid rgba(255,224,130,0.6)",borderRadius:12,padding:"10px 14px",marginBottom:12,fontSize:12,color:"#b57800",display:"flex",alignItems:"center",gap:8}}>
+            {!market.open&&<div style={{background:T.accentBg,border:`1px solid ${T.accentBorder}`,borderRadius:12,padding:"10px 14px",marginBottom:12,fontSize:12,color:T.accentDark,display:"flex",alignItems:"center",gap:8}}>
               <span style={{fontSize:16}}>🕐</span> السوق مغلق — الأسعار هي آخر إغلاق، التوصيات ثابتة.
             </div>}
             <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(155px,1fr))",gap:12}}>
@@ -306,11 +427,11 @@ export default function AdvisorBot(){
                 const pnl=h?(stock.current-h.buyPrice)*h.qty:null;
                 const isUp=stock.change>=0;
                 return(
-                  <div key={stock.symbol} onClick={()=>analyzeStock(stock)} style={{background:"rgba(255,255,255,0.85)",borderRadius:18,padding:"14px 12px",cursor:"pointer",transition:"all .2s",boxShadow:selected?.symbol===stock.symbol?"0 8px 30px rgba(232,160,48,0.25)":"0 2px 12px rgba(0,0,0,0.06)",border:selected?.symbol===stock.symbol?"1.5px solid #e8a030":"1.5px solid rgba(232,160,48,0.1)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)"}}>
+                  <div key={stock.symbol} onClick={()=>analyzeStock(stock)} style={{background:T.card,borderRadius:18,padding:"14px 12px",cursor:"pointer",transition:"all .2s",boxShadow:selected?.symbol===stock.symbol?`0 8px 30px ${T.accentShadow}`:"0 2px 12px rgba(0,0,0,0.06)",border:selected?.symbol===stock.symbol?`1.5px solid ${T.accent}`:`1.5px solid ${T.divider}`,backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)"}}>
                     <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}}>
                       <div>
-                        <div style={{fontWeight:800,fontSize:13,color:"#1a1a1a",lineHeight:1.3}}>{stock.name}</div>
-                        <div style={{fontSize:10,color:"#b09070",marginTop:2}}>{stock.symbol}</div>
+                        <div style={{fontWeight:800,fontSize:13,color:T.text,lineHeight:1.3}}>{stock.name}</div>
+                        <div style={{fontSize:10,color:T.subtext,marginTop:2}}>{stock.symbol}</div>
                       </div>
                       <div style={{background:stock.signal.bg,color:stock.signal.color,borderRadius:8,padding:"2px 7px",fontSize:10,fontWeight:700,whiteSpace:"nowrap"}}>
                         {stock.signal.label}
@@ -318,7 +439,7 @@ export default function AdvisorBot(){
                     </div>
                     <SparkLine prices={stock.prices} positive={isUp}/>
                     <div style={{marginTop:8}}>
-                      <div style={{fontSize:17,fontWeight:900,color:"#1a1a1a"}}>{stock.current} <span style={{fontSize:10,color:"#b09070",fontWeight:400}}>ر.س</span></div>
+                      <div style={{fontSize:17,fontWeight:900,color:T.text}}>{stock.current} <span style={{fontSize:10,color:T.subtext,fontWeight:400}}>ر.س</span></div>
                       <div style={{fontSize:12,fontWeight:700,color:isUp?"#2d6a4f":"#c1121f"}}>
                         {isUp?"▲":"▼"} {Math.abs(stock.changePct)}%
                       </div>
@@ -326,9 +447,9 @@ export default function AdvisorBot(){
                         {pnl>=0?"ربح +":"خسارة "}{Math.abs(pnl).toFixed(0)} ر.س
                       </div>}
                     </div>
-                    <div style={{display:"flex",justifyContent:"space-between",marginTop:10,paddingTop:8,borderTop:"1px solid rgba(232,160,48,0.1)",alignItems:"center"}}>
-                      <span style={{fontSize:10,color:"#b09070"}}>RSI <b style={{color:stock.rsi<35?"#2d6a4f":stock.rsi>65?"#c1121f":"#b5640a"}}>{stock.rsi}</b></span>
-                      <button onClick={e=>{e.stopPropagation();if(h)setMyStocks(p=>p.filter(x=>x.symbol!==stock.symbol));else{setFormData({symbol:stock.symbol,buyPrice:"",qty:""});setShowAddForm(true);setTab("portfolio");}}} style={{background:h?"#ffe0e0":"#fff8ee",border:`1px solid ${h?"#ffcdd2":"rgba(232,160,48,0.2)"}`,borderRadius:8,color:h?"#c1121f":"#c87d0a",fontSize:10,padding:"3px 8px",cursor:"pointer",fontFamily:"Cairo",fontWeight:600}}>
+                    <div style={{display:"flex",justifyContent:"space-between",marginTop:10,paddingTop:8,borderTop:`1px solid ${T.divider}`,alignItems:"center"}}>
+                      <span style={{fontSize:10,color:T.subtext}}>RSI <b style={{color:stock.rsi<35?"#2d6a4f":stock.rsi>65?"#c1121f":"#b5640a"}}>{stock.rsi}</b></span>
+                      <button onClick={e=>{e.stopPropagation();if(h)setMyStocks(p=>p.filter(x=>x.symbol!==stock.symbol));else{setFormData({symbol:stock.symbol,buyPrice:"",qty:""});setShowAddForm(true);setTab("portfolio");}}} style={{background:h?"#ffe0e0":T.accentBg,border:`1px solid ${h?"#ffcdd2":T.accentBorder}`,borderRadius:8,color:h?"#c1121f":T.accentDark,fontSize:10,padding:"3px 8px",cursor:"pointer",fontFamily:"Cairo",fontWeight:600}}>
                         {h?"✕ إزالة":"＋ أضف"}
                       </button>
                     </div>
@@ -343,31 +464,31 @@ export default function AdvisorBot(){
         {tab==="portfolio"&&(
           <div style={{flex:1,overflowY:"auto",padding:"14px 14px"}}>
             {myStocks.length>0&&(
-              <div style={{background:"rgba(255,255,255,0.9)",borderRadius:20,padding:"16px",marginBottom:14,boxShadow:"0 4px 20px rgba(0,0,0,0.06)",border:"1px solid rgba(232,160,48,0.15)"}}>
+              <div style={{background:T.card,borderRadius:20,padding:"16px",marginBottom:14,boxShadow:"0 4px 20px rgba(0,0,0,0.06)",border:`1px solid ${T.accentBorder}`}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
-                  <div style={{fontWeight:900,fontSize:15,color:"#1a1a1a"}}>💼 ملخص محفظتي</div>
-                  <button onClick={analyzePortfolio} style={{background:"linear-gradient(135deg,#e8a030,#c87d0a)",border:"none",borderRadius:20,color:"#fff",padding:"7px 16px",cursor:"pointer",fontSize:12,fontFamily:"Cairo",fontWeight:700,boxShadow:"0 4px 12px #e8a03030"}}>🤖 حلل كل شيء</button>
+                  <div style={{fontWeight:900,fontSize:15,color:T.text}}>💼 ملخص محفظتي</div>
+                  <button onClick={analyzePortfolio} style={{background:T.accentGrad,border:"none",borderRadius:20,color:"#fff",padding:"7px 16px",cursor:"pointer",fontSize:12,fontFamily:"Cairo",fontWeight:700,boxShadow:`0 4px 12px ${T.accentShadow}`}}>🤖 حلل كل شيء</button>
                 </div>
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:14}}>
                   {[["رأس المال",calc.totalCost.toFixed(0),"#1a1a1a",""],["القيمة الحالية",calc.totalNow.toFixed(0),"#1a1a1a",""],
                     [calc.totalPnl>=0?"الربح":"الخسارة",(calc.totalPnl>=0?"+":"")+calc.totalPnl.toFixed(0),calc.totalPnl>=0?"#2d6a4f":"#c1121f",calc.totalPnl>=0?"#d8f3dc":"#ffe0e0"]
                   ].map(([label,val,color,bg],i)=>(
-                    <div key={i} style={{background:bg||"#f9f5ef",borderRadius:12,padding:"10px 8px",textAlign:"center"}}>
-                      <div style={{fontSize:10,color:"#b09070",marginBottom:4}}>{label}</div>
+                    <div key={i} style={{background:bg||T.accentLight,borderRadius:12,padding:"10px 8px",textAlign:"center"}}>
+                      <div style={{fontSize:10,color:T.subtext,marginBottom:4}}>{label}</div>
                       <div style={{fontSize:15,fontWeight:900,color}}>{val}</div>
-                      <div style={{fontSize:9,color:"#b09070"}}>ريال</div>
+                      <div style={{fontSize:9,color:T.subtext}}>ريال</div>
                     </div>
                   ))}
                 </div>
                 {calc.items.map(h=>(
-                  <div key={h.symbol} style={{background:"#f9f5ef",borderRadius:12,padding:"12px",marginBottom:8,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                  <div key={h.symbol} style={{background:T.accentLight,borderRadius:12,padding:"12px",marginBottom:8,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                     <div>
-                      <div style={{fontWeight:800,fontSize:13,color:"#1a1a1a"}}>{h.name}</div>
-                      <div style={{fontSize:11,color:"#b09070",marginTop:2}}>{h.qty} سهم · دخلت بـ {h.buyPrice} ر.س</div>
+                      <div style={{fontWeight:800,fontSize:13,color:T.text}}>{h.name}</div>
+                      <div style={{fontSize:11,color:T.subtext,marginTop:2}}>{h.qty} سهم · دخلت بـ {h.buyPrice} ر.س</div>
                       {h.signal&&<div style={{background:h.signal.bg,color:h.signal.color,display:"inline-block",borderRadius:6,padding:"1px 8px",fontSize:10,fontWeight:700,marginTop:4}}>{h.signal.label}</div>}
                     </div>
                     <div style={{textAlign:"left"}}>
-                      <div style={{fontSize:14,fontWeight:900,color:"#1a1a1a"}}>{h.currentPrice?.toFixed(2)} ر.س</div>
+                      <div style={{fontSize:14,fontWeight:900,color:T.text}}>{h.currentPrice?.toFixed(2)} ر.س</div>
                       <div style={{fontSize:12,fontWeight:700,color:h.pnl>=0?"#2d6a4f":"#c1121f"}}>{h.pnl>=0?"+":""}{h.pnl.toFixed(0)} ر.س</div>
                       <div style={{fontSize:10,color:h.pnl>=0?"#40916c":"#d62828"}}>{h.pnlPct.toFixed(1)}%</div>
                     </div>
@@ -377,30 +498,30 @@ export default function AdvisorBot(){
             )}
 
             {showAddForm&&(
-              <div style={{background:"rgba(255,255,255,0.95)",borderRadius:20,padding:"16px",marginBottom:14,boxShadow:"0 4px 20px rgba(0,0,0,0.08)",border:"1px solid rgba(232,160,48,0.2)"}}>
-                <div style={{fontWeight:800,fontSize:14,color:"#1a1a1a",marginBottom:12}}>إضافة سهم</div>
-                <select value={formData.symbol} onChange={e=>setFormData(p=>({...p,symbol:e.target.value}))} style={{width:"100%",background:"#f9f5ef",border:"1px solid rgba(232,160,48,0.25)",borderRadius:12,padding:"10px",color:"#1a1a1a",fontSize:13,fontFamily:"Cairo",marginBottom:10,outline:"none",boxSizing:"border-box"}}>
+              <div style={{background:T.card,borderRadius:20,padding:"16px",marginBottom:14,boxShadow:"0 4px 20px rgba(0,0,0,0.08)",border:`1px solid ${T.accentBorder}`}}>
+                <div style={{fontWeight:800,fontSize:14,color:T.text,marginBottom:12}}>إضافة سهم</div>
+                <select value={formData.symbol} onChange={e=>setFormData(p=>({...p,symbol:e.target.value}))} style={{width:"100%",background:T.inputBg,border:`1px solid ${T.accentBorder}`,borderRadius:12,padding:"10px",color:T.text,fontSize:13,fontFamily:"Cairo",marginBottom:10,outline:"none",boxSizing:"border-box"}}>
                   <option value="">اختر السهم</option>
                   {STOCKS_LIST.map(s=><option key={s.symbol} value={s.symbol}>{s.name} ({s.symbol})</option>)}
                 </select>
-                <input type="number" placeholder="سعر الشراء (ريال)" value={formData.buyPrice} onChange={e=>setFormData(p=>({...p,buyPrice:e.target.value}))} style={{width:"100%",background:"#f9f5ef",border:"1px solid rgba(232,160,48,0.25)",borderRadius:12,padding:"10px",color:"#1a1a1a",fontSize:13,fontFamily:"Cairo",marginBottom:10,outline:"none",boxSizing:"border-box"}}/>
+                <input type="number" placeholder="سعر الشراء (ريال)" value={formData.buyPrice} onChange={e=>setFormData(p=>({...p,buyPrice:e.target.value}))} style={{width:"100%",background:T.inputBg,border:`1px solid ${T.accentBorder}`,borderRadius:12,padding:"10px",color:T.text,fontSize:13,fontFamily:"Cairo",marginBottom:10,outline:"none",boxSizing:"border-box"}}/>
                 <input type="number" placeholder="عدد الأسهم" value={formData.qty} onChange={e=>setFormData(p=>({...p,qty:e.target.value}))} style={{width:"100%",background:"#f9f5ef",border:"1px solid rgba(232,160,48,0.25)",borderRadius:12,padding:"10px",color:"#1a1a1a",fontSize:13,fontFamily:"Cairo",marginBottom:12,outline:"none",boxSizing:"border-box"}}/>
                 <div style={{display:"flex",gap:10}}>
-                  <button onClick={addToMyStocks} style={{flex:1,background:"linear-gradient(135deg,#e8a030,#c87d0a)",border:"none",borderRadius:12,color:"#fff",padding:"11px",cursor:"pointer",fontSize:13,fontFamily:"Cairo",fontWeight:700,boxShadow:"0 4px 12px #e8a03030"}}>إضافة ✓</button>
-                  <button onClick={()=>setShowAddForm(false)} style={{flex:1,background:"#f5efe5",border:"none",borderRadius:12,color:"#b09070",padding:"11px",cursor:"pointer",fontSize:13,fontFamily:"Cairo"}}>إلغاء</button>
+                  <button onClick={addToMyStocks} style={{flex:1,background:T.accentGrad,border:"none",borderRadius:12,color:"#fff",padding:"11px",cursor:"pointer",fontSize:13,fontFamily:"Cairo",fontWeight:700,boxShadow:`0 4px 12px ${T.accentShadow}`}}>إضافة ✓</button>
+                  <button onClick={()=>setShowAddForm(false)} style={{flex:1,background:T.accentLight,border:"none",borderRadius:12,color:T.subtext,padding:"11px",cursor:"pointer",fontSize:13,fontFamily:"Cairo"}}>إلغاء</button>
                 </div>
               </div>
             )}
 
-            <button onClick={()=>setShowAddForm(true)} style={{width:"100%",background:"rgba(255,255,255,0.7)",border:"2px dashed rgba(232,160,48,0.35)",borderRadius:16,color:"#c87d0a",padding:"14px",cursor:"pointer",fontSize:13,fontFamily:"Cairo",fontWeight:700,marginBottom:8}}>
+            <button onClick={()=>setShowAddForm(true)} style={{width:"100%",background:T.card,border:`2px dashed ${T.accentBorder}`,borderRadius:16,color:T.accentDark,padding:"14px",cursor:"pointer",fontSize:13,fontFamily:"Cairo",fontWeight:700,marginBottom:8}}>
               ＋ أضف سهم لمحفظتي
             </button>
 
             {myStocks.length===0&&!showAddForm&&(
-              <div style={{textAlign:"center",padding:"40px 0",color:"#c0a880"}}>
+              <div style={{textAlign:"center",padding:"40px 0",color:T.subtext}}>
                 <div style={{fontSize:40,marginBottom:12}}>💼</div>
-                <div style={{fontSize:14,fontWeight:700,color:"#8a7060"}}>أضف أسهمك مع سعر الشراء</div>
-                <div style={{fontSize:12,marginTop:6,color:"#b09070"}}>والبوت يحسب ربحك وخسارتك</div>
+                <div style={{fontSize:14,fontWeight:700,color:T.text}}>أضف أسهمك مع سعر الشراء</div>
+                <div style={{fontSize:12,marginTop:6,color:T.subtext}}>والبوت يحسب ربحك وخسارتك</div>
               </div>
             )}
           </div>
@@ -409,9 +530,9 @@ export default function AdvisorBot(){
         {/* ── تبويب المستشار ───────────────────────────────────────────── */}
         {tab==="chat"&&(
           <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}}>
-            <div style={{padding:"8px 14px",borderBottom:"1px solid rgba(232,160,48,0.1)",display:"flex",gap:6,flexWrap:"wrap",flexShrink:0,background:"rgba(255,255,255,0.6)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)"}}>
+            <div style={{padding:"8px 14px",borderBottom:`1px solid ${T.divider}`,display:"flex",gap:6,flexWrap:"wrap",flexShrink:0,background:T.header,backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)"}}>
               {["عندي خسارة في سهم، أبيع أو أتمسك؟","أعطني استراتيجية تعويض الخسارة","ما معنى RSI؟","كيف أحدد وقف الخسارة؟","نصيحة لمبتدئ؟"].map(q=>(
-                <button key={q} onClick={()=>sendMessage(q)} style={{background:"rgba(255,255,255,0.9)",border:"1px solid rgba(232,160,48,0.25)",borderRadius:20,color:"#c87d0a",fontSize:11,padding:"5px 12px",cursor:"pointer",fontFamily:"Cairo",whiteSpace:"nowrap",fontWeight:600,boxShadow:"0 2px 8px rgba(0,0,0,0.05)"}}>
+                <button key={q} onClick={()=>sendMessage(q)} style={{background:T.card,border:`1px solid ${T.accentBorder}`,borderRadius:20,color:T.accentDark,fontSize:11,padding:"5px 12px",cursor:"pointer",fontFamily:"Cairo",whiteSpace:"nowrap",fontWeight:600,boxShadow:"0 2px 8px rgba(0,0,0,0.05)"}}>
                   {q}
                 </button>
               ))}
@@ -422,25 +543,25 @@ export default function AdvisorBot(){
                 {chatLoading&&(
                   <div style={{display:"flex",justifyContent:"flex-end",marginBottom:12,gap:8}}>
                     <div style={{width:32,height:32,borderRadius:"50%",background:"linear-gradient(135deg,#e8a030,#c87d0a)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,flexShrink:0}}>🤖</div>
-                    <div style={{background:"rgba(255,255,255,0.9)",borderRadius:"18px 18px 4px 18px",padding:"12px 16px",color:"#c87d0a",fontSize:13,boxShadow:"0 2px 12px rgba(0,0,0,0.06)",display:"flex",gap:6,alignItems:"center"}}>
-                      {[0,1,2].map(i=><div key={i} style={{width:6,height:6,borderRadius:"50%",background:"#e8a030",animation:`pulse 1.2s ease-in-out ${i*0.2}s infinite`}}/>)}
+                    <div style={{background:"rgba(255,255,255,0.9)",borderRadius:"18px 18px 4px 18px",padding:"12px 16px",color:T.accentDark,fontSize:13,boxShadow:"0 2px 12px rgba(0,0,0,0.06)",display:"flex",gap:6,alignItems:"center"}}>
+                      {[0,1,2].map(i=><div key={i} style={{width:6,height:6,borderRadius:"50%",background:T.accent,animation:`pulse 1.2s ease-in-out ${i*0.2}s infinite`}}/>)}
                     </div>
                   </div>
                 )}
                 <div ref={chatEndRef}/>
               </div>
             </div>
-            <div style={{padding:"10px 14px",borderTop:"1px solid rgba(232,160,48,0.1)",background:"rgba(255,255,255,0.85)",flexShrink:0,backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)"}}>
+            <div style={{padding:"10px 14px",borderTop:`1px solid ${T.divider}`,background:T.header,flexShrink:0,backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)"}}>
               <div style={{maxWidth:720,margin:"0 auto",display:"flex",gap:8}}>
-                <input value={chatInput} onChange={e=>setChatInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&!e.shiftKey&&sendMessage()} placeholder="اسأل مستشارك..." style={{flex:1,background:"#f9f5ef",border:"1.5px solid rgba(232,160,48,0.25)",borderRadius:14,padding:"11px 14px",color:"#1a1a1a",fontSize:13,fontFamily:"Cairo",outline:"none"}}/>
-                <button onClick={()=>sendMessage()} disabled={chatLoading||!chatInput.trim()} style={{background:chatLoading||!chatInput.trim()?"#f5efe5":"linear-gradient(135deg,#e8a030,#c87d0a)",border:"none",borderRadius:14,color:chatLoading||!chatInput.trim()?"#c0a080":"#fff",padding:"11px 18px",cursor:chatLoading||!chatInput.trim()?"default":"pointer",fontSize:13,fontFamily:"Cairo",fontWeight:700,boxShadow:chatLoading||!chatInput.trim()?"none":"0 4px 12px #e8a03030"}}>إرسال</button>
+                <input value={chatInput} onChange={e=>setChatInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&!e.shiftKey&&sendMessage()} placeholder="اسأل مستشارك..." style={{flex:1,background:T.inputBg,border:`1.5px solid ${T.accentBorder}`,borderRadius:14,padding:"11px 14px",color:T.text,fontSize:13,fontFamily:"Cairo",outline:"none"}}/>
+                <button onClick={()=>sendMessage()} disabled={chatLoading||!chatInput.trim()} style={{background:chatLoading||!chatInput.trim()?"#f5efe5":"linear-gradient(135deg,#e8a030,#c87d0a)",border:"none",borderRadius:14,color:chatLoading||!chatInput.trim()?"#c0a080":"#fff",padding:"11px 18px",cursor:chatLoading||!chatInput.trim()?"default":"pointer",fontSize:13,fontFamily:"Cairo",fontWeight:700,boxShadow:chatLoading||!chatInput.trim()?"none":`0 4px 12px ${T.accentShadow}`}}>إرسال</button>
               </div>
             </div>
           </div>
         )}
       </div>
 
-      <div style={{background:"rgba(255,255,255,0.6)",borderTop:"1px solid rgba(232,160,48,0.1)",padding:"6px 14px",textAlign:"center",fontSize:10,color:"#c0a070",flexShrink:0}}>
+      <div style={{background:T.disclaimer,borderTop:`1px solid ${T.divider}`,padding:"6px 14px",textAlign:"center",fontSize:10,color:T.subtext,flexShrink:0}}>
         ⚠️ للأغراض التعليمية فقط — لا تمثل نصيحة استثمارية مرخصة
       </div>
     </div>
