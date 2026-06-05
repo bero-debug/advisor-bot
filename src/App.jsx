@@ -336,38 +336,47 @@ export default function AdvisorBot(){
       <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
       <div style={{position:"absolute",top:-80,right:-80,width:260,height:260,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`}}/>
       <div style={{position:"absolute",bottom:-60,left:-60,width:200,height:200,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`}}/>
-      {/* Modern trading icon */}
-      <div style={{width:100,height:100,borderRadius:28,background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:24,boxShadow:`0 16px 48px ${T.accentShadow}`}}>
-        <svg width="60" height="60" viewBox="0 0 80 80" fill="none">
-          {/* Robot head */}
-          <rect x="18" y="14" width="44" height="36" rx="12" fill="white" opacity="0.92"/>
-          {/* Eyes */}
-          <circle cx="32" cy="28" r="5.5" fill="none" stroke="rgba(0,0,0,0.12)" strokeWidth="1.5"/>
-          <circle cx="32" cy="28" r="3" fill="rgba(0,0,0,0.6)"/>
-          <circle cx="48" cy="28" r="5.5" fill="none" stroke="rgba(0,0,0,0.12)" strokeWidth="1.5"/>
-          <circle cx="48" cy="28" r="3" fill="rgba(0,0,0,0.6)"/>
-          {/* Smile */}
-          <path d="M30 38 Q40 45 50 38" stroke="rgba(0,0,0,0.35)" strokeWidth="2" strokeLinecap="round" fill="none"/>
-          {/* Antenna */}
-          <rect x="37" y="4" width="6" height="10" rx="3" fill="white" opacity="0.85"/>
-          <circle cx="40" cy="3" r="4" fill="white" opacity="0.9"/>
-          {/* Chart bars at bottom */}
-          <rect x="8" y="56" width="8" height="16" rx="3" fill="white" opacity="0.5"/>
-          <rect x="20" y="48" width="8" height="24" rx="3" fill="white" opacity="0.65"/>
-          <rect x="32" y="42" width="8" height="30" rx="3" fill="white" opacity="0.8"/>
-          <rect x="44" y="50" width="8" height="22" rx="3" fill="white" opacity="0.65"/>
-          <rect x="56" y="44" width="8" height="28" rx="3" fill="white" opacity="0.75"/>
-          {/* Rising line */}
-          <polyline points="8,76 20,68 32,72 44,60 56,64 68,52" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-          <circle cx="68" cy="52" r="3.5" fill="white"/>
-        </svg>
+      {/* Animated robot icon */}
+      <div style={{position:"relative",marginBottom:28}}>
+        {/* Glow ring */}
+        <div style={{position:"absolute",inset:-12,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`,animation:"glow 2.5s ease-in-out infinite"}}/>
+        {/* Body */}
+        <div style={{width:110,height:110,borderRadius:30,background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 20px 60px ${T.accentShadow}`,position:"relative",animation:"float 3s ease-in-out infinite"}}>
+          <svg width="72" height="72" viewBox="0 0 90 90" fill="none">
+            {/* Antenna */}
+            <rect x="42" y="2" width="6" height="12" rx="3" fill="white" opacity="0.9"/>
+            <circle cx="45" cy="1" r="5" fill="white"/>
+            <circle cx="45" cy="1" r="2.5" fill={T.accent}/>
+            {/* Head */}
+            <rect x="14" y="14" width="62" height="44" rx="16" fill="white" opacity="0.95"/>
+            {/* Eye sockets */}
+            <rect x="22" y="26" width="20" height="14" rx="7" fill={T.accentBg}/>
+            <rect x="48" y="26" width="20" height="14" rx="7" fill={T.accentBg}/>
+            {/* Eyes */}
+            <circle cx="32" cy="33" r="5" fill={T.accent}/>
+            <circle cx="32" cy="33" r="2.5" fill="white"/>
+            <circle cx="58" cy="33" r="5" fill={T.accent}/>
+            <circle cx="58" cy="33" r="2.5" fill="white"/>
+            {/* Mouth - smile */}
+            <path d="M30 46 Q45 54 60 46" stroke={T.accent} strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+            {/* Neck */}
+            <rect x="39" y="58" width="12" height="8" rx="3" fill="white" opacity="0.7"/>
+            {/* Chart mini */}
+            <polyline points="18,80 26,72 34,76 44,65 54,70 62,60 72,64" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.8"/>
+            <circle cx="72" cy="64" r="3" fill="white" opacity="0.9"/>
+          </svg>
+        </div>
+        {/* Floating chart badge */}
+        <div style={{position:"absolute",bottom:-8,right:-10,background:T.accentGrad,borderRadius:12,padding:"5px 10px",boxShadow:`0 4px 16px ${T.accentShadow}`,display:"flex",alignItems:"center",gap:4}}>
+          <span style={{fontSize:11,color:"white",fontWeight:700,fontFamily:"Cairo"}}>📈 تداول ذكي</span>
+        </div>
       </div>
       <div style={{fontSize:26,fontWeight:900,color:T.text,marginBottom:6}}>مستشارك الاستثماري</div>
       <div style={{fontSize:14,color:T.subtext,marginBottom:40}}>بوت تداول ذكي للسوق السعودي</div>
       <div style={{display:"flex",gap:8}}>
         {[0,1,2].map(i=><div key={i} style={{width:8,height:8,borderRadius:"50%",background:T.accent,opacity:0.4,animation:`pulse 1.4s ease-in-out ${i*0.2}s infinite`}}/>)}
       </div>
-      <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}}`}</style>
+      <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}} @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}} @keyframes glow{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:0.8;transform:scale(1.05)}}`}</style>
     </div>
   );
 
@@ -396,22 +405,10 @@ export default function AdvisorBot(){
             </div>
           </div>
           <div style={{display:"flex",gap:6,alignItems:"center"}}>
-            {/* Theme picker */}
-            <div style={{position:"relative"}}>
-              <button onClick={()=>setShowThemePicker(p=>!p)} style={{background:T.accentGrad,border:"none",borderRadius:20,padding:"6px 12px",cursor:"pointer",fontFamily:"Cairo",color:"#fff",display:"flex",alignItems:"center",gap:5,boxShadow:`0 3px 10px ${T.accentShadow}`,fontSize:12,fontWeight:700}}>
-                🎨 <span>ثيم</span>
-              </button>
-              {showThemePicker&&(
-                <div style={{position:"absolute",top:36,left:0,background:T.card,border:`1px solid ${T.accentBorder}`,borderRadius:16,padding:"10px",boxShadow:"0 8px 30px rgba(0,0,0,0.12)",zIndex:100,display:"flex",gap:8,backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)"}}>
-                  {Object.entries(THEMES).map(([key,th])=>(
-                    <button key={key} onClick={()=>{setThemeKey(key);setShowThemePicker(false);}} style={{background:themeKey===key?T.accentBg:"transparent",border:`2px solid ${themeKey===key?T.accent:"transparent"}`,borderRadius:12,padding:"8px 10px",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:4,minWidth:52}}>
-                      <span style={{fontSize:18}}>{th.emoji}</span>
-                      <span style={{fontSize:10,color:T.text,fontFamily:"Cairo",fontWeight:themeKey===key?700:400}}>{th.name}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            {/* Theme picker button */}
+            <button onClick={()=>setShowThemePicker(p=>!p)} style={{background:T.accentGrad,border:"none",borderRadius:20,padding:"6px 12px",cursor:"pointer",fontFamily:"Cairo",color:"#fff",display:"flex",alignItems:"center",gap:5,boxShadow:`0 3px 10px ${T.accentShadow}`,fontSize:12,fontWeight:700}}>
+              🎨 <span>ثيم</span>
+            </button>
             <div style={{background:market.open?"#e8f5e9":"#fff0f0",border:`1px solid ${market.open?"#a5d6a7":"#ffcdd2"}`,borderRadius:20,padding:"3px 10px",fontSize:10,fontWeight:700,color:market.open?"#2e7d32":"#c62828"}}>
               {market.open?"● مفتوح":"● مغلق"}
             </div>
@@ -588,6 +585,27 @@ export default function AdvisorBot(){
       <div style={{background:T.disclaimer,borderTop:`1px solid ${T.divider}`,padding:"6px 14px",textAlign:"center",fontSize:10,color:T.subtext,flexShrink:0}}>
         ⚠️ للأغراض التعليمية فقط — لا تمثل نصيحة استثمارية مرخصة
       </div>
+
+      {/* Theme picker - bottom sheet */}
+      {showThemePicker&&(
+        <div style={{position:"fixed",inset:0,zIndex:200,display:"flex",flexDirection:"column",justifyContent:"flex-end"}} onClick={()=>setShowThemePicker(false)}>
+          <div style={{background:"rgba(0,0,0,0.3)",position:"absolute",inset:0}}/>
+          <div onClick={e=>e.stopPropagation()} style={{position:"relative",background:T.card,borderRadius:"24px 24px 0 0",padding:"20px 20px 36px",backdropFilter:"blur(30px)",WebkitBackdropFilter:"blur(30px)",boxShadow:"0 -8px 40px rgba(0,0,0,0.15)"}}>
+            {/* Handle */}
+            <div style={{width:40,height:4,borderRadius:2,background:T.subtext,opacity:0.3,margin:"0 auto 20px"}}/>
+            <div style={{fontSize:15,fontWeight:900,color:T.text,textAlign:"center",marginBottom:20,fontFamily:"Cairo"}}>اختر ثيم التطبيق</div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:12}}>
+              {Object.entries(THEMES).map(([key,th])=>(
+                <button key={key} onClick={()=>{setThemeKey(key);setShowThemePicker(false);}} style={{background:themeKey===key?T.accentBg:"transparent",border:`2px solid ${themeKey===key?T.accent:T.divider}`,borderRadius:16,padding:"14px 8px",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:6,transition:"all .2s"}}>
+                  <div style={{width:44,height:44,borderRadius:12,background:th.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,boxShadow:`0 4px 12px ${th.accentShadow}`}}>{th.emoji}</div>
+                  <span style={{fontSize:12,color:T.text,fontFamily:"Cairo",fontWeight:themeKey===key?700:500}}>{th.name}</span>
+                  {themeKey===key&&<div style={{width:6,height:6,borderRadius:"50%",background:T.accent}}/>}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
