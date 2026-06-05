@@ -336,39 +336,27 @@ export default function AdvisorBot(){
       <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
       <div style={{position:"absolute",top:-80,right:-80,width:260,height:260,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`}}/>
       <div style={{position:"absolute",bottom:-60,left:-60,width:200,height:200,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`}}/>
-      {/* Animated robot icon */}
-      <div style={{position:"relative",marginBottom:28}}>
-        {/* Glow ring */}
-        <div style={{position:"absolute",inset:-12,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`,animation:"glow 2.5s ease-in-out infinite"}}/>
-        {/* Body */}
-        <div style={{width:110,height:110,borderRadius:30,background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 20px 60px ${T.accentShadow}`,position:"relative",animation:"float 3s ease-in-out infinite"}}>
-          <svg width="72" height="72" viewBox="0 0 90 90" fill="none">
-            {/* Antenna */}
-            <rect x="42" y="2" width="6" height="12" rx="3" fill="white" opacity="0.9"/>
-            <circle cx="45" cy="1" r="5" fill="white"/>
-            <circle cx="45" cy="1" r="2.5" fill={T.accent}/>
-            {/* Head */}
-            <rect x="14" y="14" width="62" height="44" rx="16" fill="white" opacity="0.95"/>
-            {/* Eye sockets */}
-            <rect x="22" y="26" width="20" height="14" rx="7" fill={T.accentBg}/>
-            <rect x="48" y="26" width="20" height="14" rx="7" fill={T.accentBg}/>
-            {/* Eyes */}
-            <circle cx="32" cy="33" r="5" fill={T.accent}/>
-            <circle cx="32" cy="33" r="2.5" fill="white"/>
-            <circle cx="58" cy="33" r="5" fill={T.accent}/>
-            <circle cx="58" cy="33" r="2.5" fill="white"/>
-            {/* Mouth - smile */}
-            <path d="M30 46 Q45 54 60 46" stroke={T.accent} strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            {/* Neck */}
-            <rect x="39" y="58" width="12" height="8" rx="3" fill="white" opacity="0.7"/>
-            {/* Chart mini */}
-            <polyline points="18,80 26,72 34,76 44,65 54,70 62,60 72,64" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.8"/>
-            <circle cx="72" cy="64" r="3" fill="white" opacity="0.9"/>
+      {/* Clean minimal logo */}
+      <div style={{position:"relative",marginBottom:32}}>
+        {/* Outer glow */}
+        <div style={{position:"absolute",inset:-20,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 65%)`}}/>
+        {/* Logo mark */}
+        <div style={{width:100,height:100,borderRadius:"50%",background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 16px 48px ${T.accentShadow}`,position:"relative"}}>
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+            {/* Chart bars */}
+            <rect x="4"  y="36" width="9" height="16" rx="3" fill="white" opacity="0.5"/>
+            <rect x="16" y="26" width="9" height="26" rx="3" fill="white" opacity="0.7"/>
+            <rect x="28" y="18" width="9" height="34" rx="3" fill="white" opacity="0.9"/>
+            <rect x="40" y="10" width="9" height="42" rx="3" fill="white"/>
+            {/* Rising line on top */}
+            <polyline points="8,38 20,28 32,20 48,10" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
+            {/* Dot at peak */}
+            <circle cx="48" cy="10" r="3.5" fill="white"/>
           </svg>
         </div>
-        {/* Floating chart badge */}
-        <div style={{position:"absolute",bottom:-8,right:-10,background:T.accentGrad,borderRadius:12,padding:"5px 10px",boxShadow:`0 4px 16px ${T.accentShadow}`,display:"flex",alignItems:"center",gap:4}}>
-          <span style={{fontSize:11,color:"white",fontWeight:700,fontFamily:"Cairo"}}>📈 تداول ذكي</span>
+        {/* Small badge */}
+        <div style={{position:"absolute",bottom:-6,left:"50%",transform:"translateX(-50%)",background:T.card,borderRadius:20,padding:"4px 14px",boxShadow:`0 4px 16px rgba(0,0,0,0.1)`,border:`1px solid ${T.accentBorder}`,whiteSpace:"nowrap"}}>
+          <span style={{fontSize:11,color:T.accentDark,fontWeight:700,fontFamily:"Cairo"}}>تداول ذكي ✦</span>
         </div>
       </div>
       <div style={{fontSize:26,fontWeight:900,color:T.text,marginBottom:6}}>مستشارك الاستثماري</div>
@@ -376,7 +364,7 @@ export default function AdvisorBot(){
       <div style={{display:"flex",gap:8}}>
         {[0,1,2].map(i=><div key={i} style={{width:8,height:8,borderRadius:"50%",background:T.accent,opacity:0.4,animation:`pulse 1.4s ease-in-out ${i*0.2}s infinite`}}/>)}
       </div>
-      <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}} @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}} @keyframes glow{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:0.8;transform:scale(1.05)}}`}</style>
+      <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}}`}</style>
     </div>
   );
 
@@ -388,14 +376,13 @@ export default function AdvisorBot(){
       <div style={{background:T.header,borderBottom:`1px solid ${T.divider}`,padding:"12px 16px",flexShrink:0,backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:8,flexWrap:"wrap"}}>
           <div style={{display:"flex",alignItems:"center",gap:10}}>
-            <div style={{width:38,height:38,borderRadius:12,background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 4px 12px ${T.accentShadow}`}}><svg width="24" height="24" viewBox="0 0 56 56" fill="none">
-              <rect x="12" y="14" width="32" height="26" rx="7" fill="white" opacity="0.95"/>
-              <circle cx="22" cy="24" r="2.5" fill="rgba(0,0,0,0.55)"/>
-              <circle cx="34" cy="24" r="2.5" fill="rgba(0,0,0,0.55)"/>
-              <path d="M22 32 Q28 36 34 32" stroke="rgba(0,0,0,0.4)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-              <rect x="26" y="7" width="4" height="7" rx="2" fill="white" opacity="0.8"/>
-              <polyline points="8,50 16,40 24,44 34,30 44,35 52,22" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.85"/>
-              <circle cx="52" cy="22" r="2.5" fill="white"/>
+            <div style={{width:38,height:38,borderRadius:12,background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 4px 12px ${T.accentShadow}`}}><svg width="22" height="22" viewBox="0 0 56 56" fill="none">
+              <rect x="4"  y="36" width="9" height="16" rx="3" fill="white" opacity="0.5"/>
+              <rect x="16" y="26" width="9" height="26" rx="3" fill="white" opacity="0.7"/>
+              <rect x="28" y="16" width="9" height="36" rx="3" fill="white" opacity="0.9"/>
+              <rect x="40" y="8"  width="9" height="44" rx="3" fill="white"/>
+              <polyline points="8,38 20,28 32,18 48,8" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
+              <circle cx="48" cy="8" r="4" fill="white"/>
             </svg></div>
             <div>
               <div style={{fontSize:15,fontWeight:900,color:T.text}}>مستشارك الاستثماري</div>
