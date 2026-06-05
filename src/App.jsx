@@ -334,65 +334,32 @@ export default function AdvisorBot(){
   if(splash)return(
     <div style={{height:"100vh",display:"flex",flexDirection:"column",background:T.splashBg,fontFamily:"'Cairo',sans-serif",direction:"rtl",position:"relative",overflow:"hidden"}}>
       <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
-      <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}} @keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}`}</style>
+      <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}}`}</style>
 
-      {/* BIG background chart — hero visual */}
-      <div style={{position:"absolute",inset:0,display:"flex",alignItems:"flex-end",justifyContent:"center"}}>
-        <svg width="100%" height="75%" viewBox="0 0 400 320" preserveAspectRatio="xMidYMax slice" fill="none">
-          <defs>
-            <linearGradient id="splashBarGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={T.accent} stopOpacity="0.15"/>
-              <stop offset="100%" stopColor={T.accent} stopOpacity="0.02"/>
-            </linearGradient>
-            <linearGradient id="splashAreaGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={T.accent} stopOpacity="0.14"/>
-              <stop offset="100%" stopColor={T.accent} stopOpacity="0"/>
-            </linearGradient>
-          </defs>
-          <rect x="10"  y="210" width="42" height="110" fill="url(#splashBarGrad)" rx="6"/>
-          <rect x="62"  y="175" width="42" height="145" fill="url(#splashBarGrad)" rx="6"/>
-          <rect x="114" y="225" width="42" height="95"  fill="url(#splashBarGrad)" rx="6"/>
-          <rect x="166" y="148" width="42" height="172" fill="url(#splashBarGrad)" rx="6"/>
-          <rect x="218" y="168" width="42" height="152" fill="url(#splashBarGrad)" rx="6"/>
-          <rect x="270" y="108" width="42" height="212" fill="url(#splashBarGrad)" rx="6"/>
-          <rect x="322" y="130" width="42" height="190" fill="url(#splashBarGrad)" rx="6"/>
-          <rect x="356" y="80"  width="42" height="240" fill="url(#splashBarGrad)" rx="6"/>
-          <polygon points="0,320 0,245 55,200 110,218 165,148 222,165 278,102 338,118 400,58 400,320" fill="url(#splashAreaGrad)"/>
-          <polyline points="0,245 55,200 110,218 165,148 222,165 278,102 338,118 400,58" stroke={T.accent} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.4"/>
-          <circle cx="165" cy="148" r="4" fill={T.accent} opacity="0.45"/>
-          <circle cx="278" cy="102" r="4" fill={T.accent} opacity="0.55"/>
-          <circle cx="400" cy="58"  r="6" fill={T.accent} opacity="0.85"/>
-          <circle cx="400" cy="58"  r="14" fill={T.accent} opacity="0.12"/>
-          <line x1="0" y1="80"  x2="400" y2="80"  stroke={T.accent} strokeWidth="0.5" opacity="0.07"/>
-          <line x1="0" y1="150" x2="400" y2="150" stroke={T.accent} strokeWidth="0.5" opacity="0.07"/>
-          <line x1="0" y1="220" x2="400" y2="220" stroke={T.accent} strokeWidth="0.5" opacity="0.07"/>
-        </svg>
+      {/* Chart bars as pure divs - no SVG */}
+      <div style={{position:"absolute",bottom:0,left:0,right:0,height:"65%",display:"flex",alignItems:"flex-end",gap:3,padding:"0 8px",opacity:0.12}}>
+        {[55,70,45,85,60,95,50,80,65,90,55,75,88,62,92].map((h,i)=>(
+          <div key={i} style={{flex:1,height:`${h}%`,background:T.accent,borderRadius:"4px 4px 0 0"}}/>
+        ))}
       </div>
 
-      {/* Top spacer */}
+      {/* Rising line as div overlay */}
+      <div style={{position:"absolute",bottom:"25%",left:0,right:0,height:2,background:`linear-gradient(90deg,transparent,${T.accent}40,${T.accent})`,opacity:0.3}}/>
+
+      {/* Content */}
       <div style={{flex:1}}/>
-
-      {/* Main content — bottom half */}
-      <div style={{padding:"0 32px 60px",animation:"rise 0.8s ease-out forwards"}}>
-
-        {/* Tag line */}
-        <div style={{display:"inline-flex",alignItems:"center",gap:6,background:T.accentGrad,borderRadius:20,padding:"5px 14px",marginBottom:20}}>
-          <span style={{fontSize:11,color:"white",fontWeight:700,letterSpacing:1}}>السوق السعودي · تداول</span>
+      <div style={{padding:"0 32px 64px"}}>
+        <div style={{display:"inline-flex",alignItems:"center",background:T.accentGrad,borderRadius:20,padding:"5px 14px",marginBottom:20}}>
+          <span style={{fontSize:11,color:"white",fontWeight:700}}>السوق السعودي · تداول</span>
         </div>
-
-        {/* Title */}
-        <div style={{fontSize:38,fontWeight:900,color:T.text,lineHeight:1.2,marginBottom:12}}>
+        <div style={{fontSize:40,fontWeight:900,color:T.text,lineHeight:1.2,marginBottom:12}}>
           مستشارك<br/>
           <span style={{color:T.accent}}>الاستثماري</span>
         </div>
-
-        {/* Description */}
-        <div style={{fontSize:15,color:T.subtext,lineHeight:1.8,marginBottom:40,maxWidth:280}}>
+        <div style={{fontSize:14,color:T.subtext,lineHeight:1.8,marginBottom:36,maxWidth:280}}>
           تحليل ذكي للأسهم السعودية وتوصيات مخصصة لملفك الاستثماري
         </div>
-
-        {/* Loading dots */}
-        <div style={{display:"flex",gap:8,marginTop:8}}>
+        <div style={{display:"flex",gap:8}}>
           {[0,1,2].map(i=><div key={i} style={{width:8,height:8,borderRadius:"50%",background:T.accent,opacity:0.35,animation:`pulse 1.4s ease-in-out ${i*0.2}s infinite`}}/>)}
         </div>
       </div>
