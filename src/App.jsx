@@ -337,41 +337,35 @@ export default function AdvisorBot(){
       <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}} @keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
       {/* BIG background chart — hero visual */}
-      <div style={{position:"absolute",inset:0,display:"flex",alignItems:"flex-end",justifyContent:"center",paddingBottom:0}}>
+      <div style={{position:"absolute",inset:0,display:"flex",alignItems:"flex-end",justifyContent:"center"}}>
         <svg width="100%" height="75%" viewBox="0 0 400 320" preserveAspectRatio="xMidYMax slice" fill="none">
           <defs>
-            <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={T.accent} stopOpacity="0.18"/>
-              <stop offset="100%" stopColor={T.accent} stopOpacity="0.04"/>
+            <linearGradient id="splashBarGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={T.accent} stopOpacity="0.15"/>
+              <stop offset="100%" stopColor={T.accent} stopOpacity="0.02"/>
             </linearGradient>
-            <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor={T.accent} stopOpacity="0.1"/>
-              <stop offset="60%" stopColor={T.accent} stopOpacity="0.5"/>
-              <stop offset="100%" stopColor={T.accent} stopOpacity="0.9"/>
-            </linearGradient>
-            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={T.accent} stopOpacity="0.12"/>
+            <linearGradient id="splashAreaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={T.accent} stopOpacity="0.14"/>
               <stop offset="100%" stopColor={T.accent} stopOpacity="0"/>
             </linearGradient>
           </defs>
-          {/* Bars */}
-          {[[10,210,42],[62,175,42],[114,225,42],[166,148,42],[218,168,42],[270,108,42],[322,130,42],[354,80,42]].map(([x,y,w],i)=>(
-            <rect key={i} x={x} y={y} width={w} height={320-y} fill="url(#barGrad)" rx="6"/>
-          ))}
-          {/* Area fill under line */}
-          <polygon points="0,320 0,245 55,200 110,218 165,148 222,165 278,102 338,118 400,58 400,320" fill="url(#areaGrad)"/>
-          {/* Main rising line */}
-          <polyline points="0,245 55,200 110,218 165,148 222,165 278,102 338,118 400,58" stroke="url(#lineGrad)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-          {/* Dots on line */}
-          {[[165,148],[278,102],[400,58]].map(([x,y],i)=>(
-            <circle key={i} cx={x} cy={y} r={i===2?6:4} fill={T.accent} opacity={i===2?0.9:0.5}/>
-          ))}
-          {/* Last dot glow */}
-          <circle cx="400" cy="58" r="12" fill={T.accent} opacity="0.15"/>
-          {/* Grid lines subtle */}
-          {[80,140,200,260].map((y,i)=>(
-            <line key={i} x1="0" y1={y} x2="400" y2={y} stroke={T.accent} strokeWidth="0.5" opacity="0.08"/>
-          ))}
+          <rect x="10"  y="210" width="42" height="110" fill="url(#splashBarGrad)" rx="6"/>
+          <rect x="62"  y="175" width="42" height="145" fill="url(#splashBarGrad)" rx="6"/>
+          <rect x="114" y="225" width="42" height="95"  fill="url(#splashBarGrad)" rx="6"/>
+          <rect x="166" y="148" width="42" height="172" fill="url(#splashBarGrad)" rx="6"/>
+          <rect x="218" y="168" width="42" height="152" fill="url(#splashBarGrad)" rx="6"/>
+          <rect x="270" y="108" width="42" height="212" fill="url(#splashBarGrad)" rx="6"/>
+          <rect x="322" y="130" width="42" height="190" fill="url(#splashBarGrad)" rx="6"/>
+          <rect x="356" y="80"  width="42" height="240" fill="url(#splashBarGrad)" rx="6"/>
+          <polygon points="0,320 0,245 55,200 110,218 165,148 222,165 278,102 338,118 400,58 400,320" fill="url(#splashAreaGrad)"/>
+          <polyline points="0,245 55,200 110,218 165,148 222,165 278,102 338,118 400,58" stroke={T.accent} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.4"/>
+          <circle cx="165" cy="148" r="4" fill={T.accent} opacity="0.45"/>
+          <circle cx="278" cy="102" r="4" fill={T.accent} opacity="0.55"/>
+          <circle cx="400" cy="58"  r="6" fill={T.accent} opacity="0.85"/>
+          <circle cx="400" cy="58"  r="14" fill={T.accent} opacity="0.12"/>
+          <line x1="0" y1="80"  x2="400" y2="80"  stroke={T.accent} strokeWidth="0.5" opacity="0.07"/>
+          <line x1="0" y1="150" x2="400" y2="150" stroke={T.accent} strokeWidth="0.5" opacity="0.07"/>
+          <line x1="0" y1="220" x2="400" y2="220" stroke={T.accent} strokeWidth="0.5" opacity="0.07"/>
         </svg>
       </div>
 
