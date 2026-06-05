@@ -338,12 +338,28 @@ export default function AdvisorBot(){
       <div style={{position:"absolute",bottom:-60,left:-60,width:200,height:200,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`}}/>
       {/* Modern trading icon */}
       <div style={{width:100,height:100,borderRadius:28,background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:24,boxShadow:`0 16px 48px ${T.accentShadow}`}}>
-        <svg width="54" height="54" viewBox="0 0 54 54" fill="none">
-          <polyline points="4,42 14,28 22,34 32,16 42,22 50,8" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-          <circle cx="50" cy="8" r="4" fill="white"/>
-          <circle cx="32" cy="16" r="3" fill="rgba(255,255,255,0.7)"/>
-          <circle cx="14" cy="28" r="3" fill="rgba(255,255,255,0.7)"/>
-          <rect x="4" y="46" width="46" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+        <svg width="60" height="60" viewBox="0 0 80 80" fill="none">
+          {/* Robot head */}
+          <rect x="18" y="14" width="44" height="36" rx="12" fill="white" opacity="0.92"/>
+          {/* Eyes */}
+          <circle cx="32" cy="28" r="5.5" fill="none" stroke="rgba(0,0,0,0.12)" strokeWidth="1.5"/>
+          <circle cx="32" cy="28" r="3" fill="rgba(0,0,0,0.6)"/>
+          <circle cx="48" cy="28" r="5.5" fill="none" stroke="rgba(0,0,0,0.12)" strokeWidth="1.5"/>
+          <circle cx="48" cy="28" r="3" fill="rgba(0,0,0,0.6)"/>
+          {/* Smile */}
+          <path d="M30 38 Q40 45 50 38" stroke="rgba(0,0,0,0.35)" strokeWidth="2" strokeLinecap="round" fill="none"/>
+          {/* Antenna */}
+          <rect x="37" y="4" width="6" height="10" rx="3" fill="white" opacity="0.85"/>
+          <circle cx="40" cy="3" r="4" fill="white" opacity="0.9"/>
+          {/* Chart bars at bottom */}
+          <rect x="8" y="56" width="8" height="16" rx="3" fill="white" opacity="0.5"/>
+          <rect x="20" y="48" width="8" height="24" rx="3" fill="white" opacity="0.65"/>
+          <rect x="32" y="42" width="8" height="30" rx="3" fill="white" opacity="0.8"/>
+          <rect x="44" y="50" width="8" height="22" rx="3" fill="white" opacity="0.65"/>
+          <rect x="56" y="44" width="8" height="28" rx="3" fill="white" opacity="0.75"/>
+          {/* Rising line */}
+          <polyline points="8,76 20,68 32,72 44,60 56,64 68,52" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <circle cx="68" cy="52" r="3.5" fill="white"/>
         </svg>
       </div>
       <div style={{fontSize:26,fontWeight:900,color:T.text,marginBottom:6}}>مستشارك الاستثماري</div>
@@ -363,7 +379,15 @@ export default function AdvisorBot(){
       <div style={{background:T.header,borderBottom:`1px solid ${T.divider}`,padding:"12px 16px",flexShrink:0,backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:8,flexWrap:"wrap"}}>
           <div style={{display:"flex",alignItems:"center",gap:10}}>
-            <div style={{width:38,height:38,borderRadius:12,background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 4px 12px ${T.accentShadow}`}}><svg width="22" height="22" viewBox="0 0 54 54" fill="none"><polyline points="4,42 14,28 22,34 32,16 42,22 50,8" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/><circle cx="50" cy="8" r="4" fill="white"/></svg></div>
+            <div style={{width:38,height:38,borderRadius:12,background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 4px 12px ${T.accentShadow}`}}><svg width="24" height="24" viewBox="0 0 56 56" fill="none">
+              <rect x="12" y="14" width="32" height="26" rx="7" fill="white" opacity="0.95"/>
+              <circle cx="22" cy="24" r="2.5" fill="rgba(0,0,0,0.55)"/>
+              <circle cx="34" cy="24" r="2.5" fill="rgba(0,0,0,0.55)"/>
+              <path d="M22 32 Q28 36 34 32" stroke="rgba(0,0,0,0.4)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+              <rect x="26" y="7" width="4" height="7" rx="2" fill="white" opacity="0.8"/>
+              <polyline points="8,50 16,40 24,44 34,30 44,35 52,22" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.85"/>
+              <circle cx="52" cy="22" r="2.5" fill="white"/>
+            </svg></div>
             <div>
               <div style={{fontSize:15,fontWeight:900,color:T.text}}>مستشارك الاستثماري</div>
               <div style={{fontSize:10,color:T.subtext,display:"flex",gap:5,alignItems:"center"}}>
@@ -374,8 +398,8 @@ export default function AdvisorBot(){
           <div style={{display:"flex",gap:6,alignItems:"center"}}>
             {/* Theme picker */}
             <div style={{position:"relative"}}>
-              <button onClick={()=>setShowThemePicker(p=>!p)} style={{background:T.card,border:`1px solid ${T.accentBorder}`,borderRadius:20,padding:"5px 10px",cursor:"pointer",fontSize:13,fontFamily:"Cairo",color:T.text,display:"flex",alignItems:"center",gap:4}}>
-                {THEMES[themeKey].emoji} <span style={{fontSize:10,color:T.subtext}}>ثيم</span>
+              <button onClick={()=>setShowThemePicker(p=>!p)} style={{background:T.accentGrad,border:"none",borderRadius:20,padding:"6px 12px",cursor:"pointer",fontFamily:"Cairo",color:"#fff",display:"flex",alignItems:"center",gap:5,boxShadow:`0 3px 10px ${T.accentShadow}`,fontSize:12,fontWeight:700}}>
+                🎨 <span>ثيم</span>
               </button>
               {showThemePicker&&(
                 <div style={{position:"absolute",top:36,left:0,background:T.card,border:`1px solid ${T.accentBorder}`,borderRadius:16,padding:"10px",boxShadow:"0 8px 30px rgba(0,0,0,0.12)",zIndex:100,display:"flex",gap:8,backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)"}}>
