@@ -332,39 +332,55 @@ export default function AdvisorBot(){
 
   // ─── Splash ─────────────────────────────────────────────────────────────────
   if(splash)return(
-    <div style={{height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:T.splashBg,fontFamily:"'Cairo',sans-serif",direction:"rtl",position:"relative",overflow:"hidden"}}>
+    <div style={{height:"100vh",display:"flex",flexDirection:"column",background:T.splashBg,fontFamily:"'Cairo',sans-serif",direction:"rtl",position:"relative",overflow:"hidden"}}>
       <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
-      <div style={{position:"absolute",top:-80,right:-80,width:260,height:260,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`}}/>
-      <div style={{position:"absolute",bottom:-60,left:-60,width:200,height:200,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 70%)`}}/>
-      {/* Clean minimal logo */}
-      <div style={{position:"relative",marginBottom:32}}>
-        {/* Outer glow */}
-        <div style={{position:"absolute",inset:-20,borderRadius:"50%",background:`radial-gradient(circle,${T.accentShadow},transparent 65%)`}}/>
-        {/* Logo mark */}
-        <div style={{width:100,height:100,borderRadius:"50%",background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 16px 48px ${T.accentShadow}`,position:"relative"}}>
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-            {/* Chart bars */}
-            <rect x="4"  y="36" width="9" height="16" rx="3" fill="white" opacity="0.5"/>
-            <rect x="16" y="26" width="9" height="26" rx="3" fill="white" opacity="0.7"/>
-            <rect x="28" y="18" width="9" height="34" rx="3" fill="white" opacity="0.9"/>
-            <rect x="40" y="10" width="9" height="42" rx="3" fill="white"/>
-            {/* Rising line on top */}
-            <polyline points="8,38 20,28 32,20 48,10" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
-            {/* Dot at peak */}
-            <circle cx="48" cy="10" r="3.5" fill="white"/>
-          </svg>
+      <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}} @keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}`}</style>
+
+      {/* BIG background chart — hero visual */}
+      <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
+        <svg width="110%" height="70%" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none" style={{opacity:0.07}}>
+          <polyline points="0,250 50,200 100,220 160,150 220,170 280,100 340,120 400,60" stroke={T.accent} strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+          <polyline points="0,280 60,240 120,255 180,195 240,210 300,155 360,170 400,120" stroke={T.accent} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+          {/* Bars */}
+          {[[20,200,40],[80,170,40],[140,210,40],[200,140,40],[260,160,40],[320,110,40],[370,130,40]].map(([x,y,w],i)=>(
+            <rect key={i} x={x} y={y} width={w} height={300-y} fill={T.accent} opacity="0.4" rx="4"/>
+          ))}
+        </svg>
+      </div>
+
+      {/* Top spacer */}
+      <div style={{flex:1}}/>
+
+      {/* Main content — bottom half */}
+      <div style={{padding:"0 32px 60px",animation:"rise 0.8s ease-out forwards"}}>
+
+        {/* Tag line */}
+        <div style={{display:"inline-flex",alignItems:"center",gap:6,background:T.accentGrad,borderRadius:20,padding:"5px 14px",marginBottom:20}}>
+          <span style={{fontSize:11,color:"white",fontWeight:700,letterSpacing:1}}>السوق السعودي · تداول</span>
         </div>
-        {/* Small badge */}
-        <div style={{position:"absolute",bottom:-6,left:"50%",transform:"translateX(-50%)",background:T.card,borderRadius:20,padding:"4px 14px",boxShadow:`0 4px 16px rgba(0,0,0,0.1)`,border:`1px solid ${T.accentBorder}`,whiteSpace:"nowrap"}}>
-          <span style={{fontSize:11,color:T.accentDark,fontWeight:700,fontFamily:"Cairo"}}>تداول ذكي ✦</span>
+
+        {/* Title */}
+        <div style={{fontSize:38,fontWeight:900,color:T.text,lineHeight:1.2,marginBottom:12}}>
+          مستشارك<br/>
+          <span style={{color:T.accent}}>الاستثماري</span>
+        </div>
+
+        {/* Description */}
+        <div style={{fontSize:15,color:T.subtext,lineHeight:1.8,marginBottom:40,maxWidth:280}}>
+          تحليل ذكي للأسهم السعودية وتوصيات مخصصة لملفك الاستثماري
+        </div>
+
+        {/* Start button */}
+        <button onClick={()=>setSplash(false)} style={{width:"100%",background:T.accentGrad,border:"none",borderRadius:20,padding:"18px",color:"white",fontSize:17,fontFamily:"Cairo",fontWeight:900,cursor:"pointer",boxShadow:`0 8px 30px ${T.accentShadow}`,display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
+          <span>ابدأ الآن</span>
+          <span style={{fontSize:20}}>←</span>
+        </button>
+
+        {/* Dots */}
+        <div style={{display:"flex",justifyContent:"center",gap:8,marginTop:24}}>
+          {[0,1,2].map(i=><div key={i} style={{width:i===0?24:8,height:8,borderRadius:4,background:T.accent,opacity:i===0?1:0.3}}/>)}
         </div>
       </div>
-      <div style={{fontSize:26,fontWeight:900,color:T.text,marginBottom:6}}>مستشارك الاستثماري</div>
-      <div style={{fontSize:14,color:T.subtext,marginBottom:40}}>بوت تداول ذكي للسوق السعودي</div>
-      <div style={{display:"flex",gap:8}}>
-        {[0,1,2].map(i=><div key={i} style={{width:8,height:8,borderRadius:"50%",background:T.accent,opacity:0.4,animation:`pulse 1.4s ease-in-out ${i*0.2}s infinite`}}/>)}
-      </div>
-      <style>{`@keyframes pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.5);opacity:1}}`}</style>
     </div>
   );
 
