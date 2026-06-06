@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/quote.js": {
+      "runtime": "edge"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/quote", "destination": "/api/quote" }
+  ]
+}
