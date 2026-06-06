@@ -200,15 +200,16 @@ const SEED={
 };
 
 // ─── Chat Bubble ──────────────────────────────────────────────────────────────
-function ChatBubble({msg}){
+function ChatBubble({msg,T}){
   const isUser=msg.role==="user";
+  if(!T)return null;
   return(
     <div style={{display:"flex",justifyContent:isUser?"flex-start":"flex-end",marginBottom:12,gap:8}}>
       {!isUser&&<div style={{width:32,height:32,borderRadius:"50%",background:T.accentGrad,display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,flexShrink:0,boxShadow:`0 2px 8px ${T.accentShadow}`}}>🤖</div>}
       <div style={{maxWidth:"78%",background:isUser?T.accentGrad:T.card,borderRadius:isUser?"18px 18px 18px 4px":"18px 18px 4px 18px",padding:"12px 16px",fontSize:13,lineHeight:1.8,color:isUser?"#ffffff":T.text,boxShadow:isUser?`0 4px 15px ${T.accentShadow}`:"0 2px 12px rgba(0,0,0,0.06)",whiteSpace:"pre-wrap",fontFamily:"'Cairo',sans-serif"}}>
         {msg.content}
       </div>
-      {isUser&&<div style={{width:32,height:32,borderRadius:"50%",background:"#f0ebe0",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,flexShrink:0}}>👤</div>}
+      {isUser&&<div style={{width:32,height:32,borderRadius:"50%",background:T.accentLight,display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,flexShrink:0}}>👤</div>}
     </div>
   );
 }
@@ -534,7 +535,7 @@ export default function AdvisorBot(){
             </div>
             <div style={{flex:1,overflowY:"auto",padding:"14px 14px",background:"transparent"}}>
               <div style={{maxWidth:720,margin:"0 auto"}}>
-                {messages.map((m,i)=><ChatBubble key={i} msg={m}/>)}
+                {messages.map((m,i)=><ChatBubble key={i} msg={m} T={T}/>)}
                 {chatLoading&&(
                   <div style={{display:"flex",justifyContent:"flex-end",marginBottom:12,gap:8}}>
                     <div style={{width:32,height:32,borderRadius:"50%",background:"linear-gradient(135deg,#e8a030,#c87d0a)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,flexShrink:0}}>🤖</div>
