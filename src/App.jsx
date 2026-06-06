@@ -12,7 +12,6 @@ const USER_PROFILE = {
 };
 
 const STOCKS_LIST = [
-  // ── بنوك ─────────────────────────────────────────────────────────────────
   {symbol:"1010",name:"الرياض",sector:"بنوك"},
   {symbol:"1020",name:"الجزيرة",sector:"بنوك"},
   {symbol:"1030",name:"السعودي الفرنسي",sector:"بنوك"},
@@ -24,11 +23,9 @@ const STOCKS_LIST = [
   {symbol:"1150",name:"الإنماء",sector:"بنوك"},
   {symbol:"1180",name:"الأهلي",sector:"بنوك"},
   {symbol:"1182",name:"الاستثمار",sector:"بنوك"},
-  // ── طاقة ─────────────────────────────────────────────────────────────────
   {symbol:"2222",name:"أرامكو",sector:"طاقة"},
   {symbol:"2030",name:"الباحة",sector:"طاقة"},
   {symbol:"2381",name:"صافولا",sector:"طاقة"},
-  // ── بتروكيماويات ─────────────────────────────────────────────────────────
   {symbol:"2010",name:"سابك",sector:"بتروكيماويات"},
   {symbol:"2020",name:"سابك للمغذيات",sector:"بتروكيماويات"},
   {symbol:"2060",name:"نماء",sector:"بتروكيماويات"},
@@ -58,7 +55,6 @@ const STOCKS_LIST = [
   {symbol:"2370",name:"المجموعة السعودية",sector:"بتروكيماويات"},
   {symbol:"2380",name:"پترو رابغ",sector:"بتروكيماويات"},
   {symbol:"2390",name:"رالكو",sector:"بتروكيماويات"},
-  // ── أسمنت ────────────────────────────────────────────────────────────────
   {symbol:"3001",name:"أسمنت اليمامة",sector:"أسمنت"},
   {symbol:"3002",name:"أسمنت العربية",sector:"أسمنت"},
   {symbol:"3003",name:"أسمنت القصيم",sector:"أسمنت"},
@@ -75,7 +71,6 @@ const STOCKS_LIST = [
   {symbol:"3060",name:"أسمنت أم القرى",sector:"أسمنت"},
   {symbol:"3080",name:"أسمنت المنطقة",sector:"أسمنت"},
   {symbol:"3090",name:"أسمنت طبوك",sector:"أسمنت"},
-  // ── تجزئة ────────────────────────────────────────────────────────────────
   {symbol:"4001",name:"الحكير",sector:"تجزئة"},
   {symbol:"4002",name:"الشايع",sector:"تجزئة"},
   {symbol:"4003",name:"بن داوود",sector:"تجزئة"},
@@ -140,7 +135,6 @@ const STOCKS_LIST = [
   {symbol:"4321",name:"سينومي سنترز",sector:"تجزئة"},
   {symbol:"4322",name:"سينومي ريتيل",sector:"تجزئة"},
   {symbol:"4323",name:"رتال",sector:"عقارات"},
-  // ── اتصالات وتقنية ───────────────────────────────────────────────────────
   {symbol:"7010",name:"الاتصالات السعودية",sector:"اتصالات"},
   {symbol:"7020",name:"موبايلي",sector:"اتصالات"},
   {symbol:"7030",name:"زين السعودية",sector:"اتصالات"},
@@ -148,17 +142,8 @@ const STOCKS_LIST = [
   {symbol:"7203",name:"موبيلي",sector:"اتصالات"},
   {symbol:"1302",name:"المتقدمة",sector:"تقنية"},
   {symbol:"7204",name:"سيلا",sector:"تقنية"},
-  // ── تعدين ────────────────────────────────────────────────────────────────
   {symbol:"1211",name:"معادن",sector:"تعدين"},
-  {symbol:"2060",name:"نماء للتعدين",sector:"تعدين"},
-  // ── عقارات ───────────────────────────────────────────────────────────────
-  {symbol:"4300",name:"دار الأركان",sector:"عقارات"},
-  {symbol:"4020",name:"دار الأركان",sector:"عقارات"},
   {symbol:"4090",name:"الاتحاد العقاري",sector:"عقارات"},
-  {symbol:"4100",name:"شمال للبناء",sector:"عقارات"},
-  {symbol:"4150",name:"نيوم",sector:"عقارات"},
-  {symbol:"4220",name:"المملكة القابضة",sector:"عقارات"},
-  // ── غذاء وزراعة ──────────────────────────────────────────────────────────
   {symbol:"2280",name:"الأفلاج",sector:"غذاء"},
   {symbol:"6001",name:"حلواني",sector:"غذاء"},
   {symbol:"6002",name:"نادك",sector:"غذاء"},
@@ -174,11 +159,6 @@ const STOCKS_LIST = [
   {symbol:"6060",name:"فطيم",sector:"غذاء"},
   {symbol:"6070",name:"الأطعمة والمنتجات",sector:"غذاء"},
   {symbol:"6090",name:"الأسواق",sector:"غذاء"},
-  // ── رعاية صحية ───────────────────────────────────────────────────────────
-  {symbol:"4002",name:"أسواق الدواء",sector:"صحة"},
-  {symbol:"4013",name:"الحمادي",sector:"صحة"},
-  {symbol:"4017",name:"مستشفى ام القرى",sector:"صحة"},
-  {symbol:"4061",name:"النهدي",sector:"صحة"},
   {symbol:"4062",name:"دله الصحية",sector:"صحة"},
   {symbol:"4065",name:"بيكو",sector:"صحة"},
   {symbol:"2080",name:"أسواق المستشفيات",sector:"صحة"},
@@ -188,7 +168,6 @@ const STOCKS_LIST = [
   {symbol:"4508",name:"المسار",sector:"صحة"},
   {symbol:"4510",name:"ثروة",sector:"صحة"},
   {symbol:"4512",name:"سوما",sector:"صحة"},
-  // ── تأمين ────────────────────────────────────────────────────────────────
   {symbol:"8010",name:"التعاونية",sector:"تأمين"},
   {symbol:"8020",name:"الراجحي تكافل",sector:"تأمين"},
   {symbol:"8030",name:"ملاذ",sector:"تأمين"},
@@ -214,15 +193,7 @@ const STOCKS_LIST = [
   {symbol:"8270",name:"المتوسط والخليج",sector:"تأمين"},
   {symbol:"8280",name:"أليانز",sector:"تأمين"},
   {symbol:"8290",name:"الأولى",sector:"تأمين"},
-  {symbol:"8300",name:"الصقر",sector:"تأمين"},
-  // ── نقل ──────────────────────────────────────────────────────────────────
-  {symbol:"4031",name:"السعودية للخدمات اللوجستية",sector:"نقل"},
-  {symbol:"4261",name:"موانئ",sector:"نقل"},
-  {symbol:"4262",name:"أسطول",sector:"نقل"},
-  {symbol:"4263",name:"البر",sector:"نقل"},
-  {symbol:"4264",name:"ناس",sector:"نقل"},
-  {symbol:"4270",name:"البحرية",sector:"نقل"},
-  {symbol:"4280",name:"الحافلات",sector:"نقل"},
+  {symbol:"8300",name:"الصقر",sector:"تأمين"}
 ];
 
 const SEED={
@@ -356,7 +327,9 @@ export default function App(){
   const filteredStocks=useMemo(()=>{
     const q=search.trim();
     if(!q)return stocks;
-    return stocks.filter(s=>s.name.includes(q)||s.symbol.includes(q)||s.sector.includes(q));
+    const isNum=/^\d+$/.test(q);
+    if(isNum) return stocks.filter(s=>s.symbol.startsWith(q));
+    return stocks.filter(s=>s.name.includes(q)||s.sector===q);
   },[stocks,search]);
     const pCtx=calc.items.length>0?"\n\nمحفظتي:\n"+calc.items.map(h=>h.name+": "+h.qty+" سهم بـ "+h.buyPrice+" والآن "+h.currentPrice?.toFixed(2)+" ("+(h.pnl>=0?"ربح":"خسارة")+" "+Math.abs(h.pnl||0).toFixed(0)+" ريال)").join("\n"):"";
     const nm=[...messages,{role:"user",content:ut}];
@@ -385,7 +358,9 @@ export default function App(){
   const filteredStocks=useMemo(()=>{
     const q=search.trim();
     if(!q)return stocks;
-    return stocks.filter(s=>s.name.includes(q)||s.symbol.includes(q)||s.sector.includes(q));
+    const isNum=/^\d+$/.test(q);
+    if(isNum) return stocks.filter(s=>s.symbol.startsWith(q));
+    return stocks.filter(s=>s.name.includes(q)||s.sector===q);
   },[stocks,search]);
     if(!calc.items.length){setMessages(p=>[...p,{role:"assistant",content:"أضف أسهمك في تبويب محفظتي أول 👆"}]);return;}
     const msg="حلل محفظتي الكاملة:\n"+calc.items.map(h=>"- "+h.name+": اشتريت بـ "+h.buyPrice+" والآن "+h.currentPrice?.toFixed(2)+" | "+(h.pnl>=0?"ربح":"خسارة")+": "+Math.abs(h.pnl).toFixed(0)+" ريال ("+h.pnlPct.toFixed(1)+"%) | إشارة: "+(h.signal?.label||"؟")).join("\n")+"\n\nإجمالي: "+(calc.totalPnl>=0?"ربح":"خسارة")+" "+Math.abs(calc.totalPnl).toFixed(0)+" ريال ("+calc.totalPnlPct.toFixed(1)+"%)\n\nأبي:\n1. تحليل كل سهم\n2. أيها أبيع وأيها أتمسك\n3. استراتيجية تعويض الخسارة خلال سنة";
@@ -396,7 +371,9 @@ export default function App(){
   const filteredStocks=useMemo(()=>{
     const q=search.trim();
     if(!q)return stocks;
-    return stocks.filter(s=>s.name.includes(q)||s.symbol.includes(q)||s.sector.includes(q));
+    const isNum=/^\d+$/.test(q);
+    if(isNum) return stocks.filter(s=>s.symbol.startsWith(q));
+    return stocks.filter(s=>s.name.includes(q)||s.sector===q);
   },[stocks,search]);
 
   // ── Splash ──────────────────────────────────────────────────────────────────
@@ -624,3 +601,4 @@ export default function App(){
     </div>
   );
 }
+ج
