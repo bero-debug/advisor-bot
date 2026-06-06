@@ -250,12 +250,16 @@ function marketStatus(){
 
 async function fetchRealPrice(symbol){
   try{
-    // Use our Vercel proxy to avoid CORS issues
     const res=await fetch("/api/quote?symbol="+symbol);
     if(!res.ok)return null;
     const d=await res.json();
-    if(d.error)return null;
-    return{price:parseFloat(d.price),change:parseFloat(d.change),changePct:parseFloat(d.change_percent),volume:parseInt(d.volume)||0};
+    if(!d||d.error||!d.price)return null;
+    return{
+      price:parseFloat(d.price),
+      change:parseFloat(d.change||0),
+      changePct:parseFloat(d.change_percent||0),
+      volume:parseInt(d.volume)||0
+    };
   }catch{return null;}
 }
 
