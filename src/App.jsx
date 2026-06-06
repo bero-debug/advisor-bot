@@ -248,15 +248,13 @@ function marketStatus(){
   return{open:r.getDay()>=0&&r.getDay()<=4&&r.getHours()+r.getMinutes()/60>=10&&r.getHours()+r.getMinutes()/60<15};
 }
 
-const SAHMK_KEY=(typeof import.meta!=="undefined"&&import.meta.env)?import.meta.env.VITE_SAHMK_KEY||"":"";
-
 async function fetchRealPrice(symbol){
   try{
-    const headers={"Accept":"application/json"};
-    if(SAHMK_KEY)headers["X-API-Key"]=SAHMK_KEY;
-    const res=await fetch("https://app.sahmk.sa/api/v1/quote/"+symbol+"/",{headers});
+    // Use our Vercel proxy to avoid CORS issues
+    const res=await fetch("/api/quote?symbol="+symbol);
     if(!res.ok)return null;
     const d=await res.json();
+    if(d.error)return null;
     return{price:parseFloat(d.price),change:parseFloat(d.change),changePct:parseFloat(d.change_percent),volume:parseInt(d.volume)||0};
   }catch{return null;}
 }
