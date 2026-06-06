@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 
 const THEMES = {
   gold: { name:"ذهبي", emoji:"🟡", bg:"linear-gradient(160deg,#fdf6ec,#fef9f0,#fdf0dc)", card:"rgba(255,255,255,0.88)", header:"rgba(255,255,255,0.88)", accent:"#e8a030", accentDark:"#c87d0a", accentGrad:"linear-gradient(135deg,#e8a030,#c87d0a)", accentShadow:"rgba(232,160,48,0.3)", accentBorder:"rgba(232,160,48,0.25)", accentBg:"#fff8ee", accentLight:"#fdf3e3", text:"#1a1a1a", subtext:"#b09070", divider:"rgba(232,160,48,0.12)", splashBg:"linear-gradient(160deg,#fdf6ec,#fef9f0,#fdf0dc)", inputBg:"#fdf6ec" },
@@ -309,7 +309,14 @@ export default function App(){
   const buildStocks=useCallback(async()=>{
     setFetching(true);setMarket(marketStatus());
     const results=await Promise.all(STOCKS_LIST.map(async s=>{
-      const prices=[...(SEED[s.symbol]||Array(30).fill(10))];
+      // Generate realistic prices if no seed data
+      const defaultPrice = {
+        "بنوك":35,"طاقة":28,"بتروكيماويات":55,"أسمنت":22,"تجزئة":30,
+        "اتصالات":80,"تقنية":40,"تعدين":58,"عقارات":18,"غذاء":45,
+        "صحة":35,"تأمين":25,"نقل":20,"مالية":22
+      }[s.sector]||25;
+      const genPrices=(base)=>{let p=base,arr=[];for(let i=0;i<30;i++){p=Math.max(p+(Math.random()-0.49)*p*0.015,1);arr.push(parseFloat(p.toFixed(2)));}return arr;};
+      const prices=[...(SEED[s.symbol]||genPrices(defaultPrice))];
       const real=await fetchRealPrice(s.symbol);
       if(real&&!isNaN(real.price)){setApiOk(true);prices[prices.length-1]=real.price;}
       else if(apiOk!==true)setApiOk(false);
@@ -346,6 +353,11 @@ export default function App(){
     if(!ut)return;
     setChatInput("");
     const calc=getCalc();
+  const filteredStocks=useMemo(()=>{
+    const q=search.trim();
+    if(!q)return stocks;
+    return stocks.filter(s=>s.name.includes(q)||s.symbol.includes(q)||s.sector.includes(q));
+  },[stocks,search]);
     const pCtx=calc.items.length>0?"\n\nمحفظتي:\n"+calc.items.map(h=>h.name+": "+h.qty+" سهم بـ "+h.buyPrice+" والآن "+h.currentPrice?.toFixed(2)+" ("+(h.pnl>=0?"ربح":"خسارة")+" "+Math.abs(h.pnl||0).toFixed(0)+" ريال)").join("\n"):"";
     const nm=[...messages,{role:"user",content:ut}];
     setMessages(nm);setChatLoading(true);
@@ -370,12 +382,22 @@ export default function App(){
   const analyzePortfolio=async()=>{
     setTab("chat");
     const calc=getCalc();
+  const filteredStocks=useMemo(()=>{
+    const q=search.trim();
+    if(!q)return stocks;
+    return stocks.filter(s=>s.name.includes(q)||s.symbol.includes(q)||s.sector.includes(q));
+  },[stocks,search]);
     if(!calc.items.length){setMessages(p=>[...p,{role:"assistant",content:"أضف أسهمك في تبويب محفظتي أول 👆"}]);return;}
     const msg="حلل محفظتي الكاملة:\n"+calc.items.map(h=>"- "+h.name+": اشتريت بـ "+h.buyPrice+" والآن "+h.currentPrice?.toFixed(2)+" | "+(h.pnl>=0?"ربح":"خسارة")+": "+Math.abs(h.pnl).toFixed(0)+" ريال ("+h.pnlPct.toFixed(1)+"%) | إشارة: "+(h.signal?.label||"؟")).join("\n")+"\n\nإجمالي: "+(calc.totalPnl>=0?"ربح":"خسارة")+" "+Math.abs(calc.totalPnl).toFixed(0)+" ريال ("+calc.totalPnlPct.toFixed(1)+"%)\n\nأبي:\n1. تحليل كل سهم\n2. أيها أبيع وأيها أتمسك\n3. استراتيجية تعويض الخسارة خلال سنة";
     await sendMessage(msg);
   };
 
   const calc=getCalc();
+  const filteredStocks=useMemo(()=>{
+    const q=search.trim();
+    if(!q)return stocks;
+    return stocks.filter(s=>s.name.includes(q)||s.symbol.includes(q)||s.sector.includes(q));
+  },[stocks,search]);
 
   // ── Splash ──────────────────────────────────────────────────────────────────
   if(splash){
@@ -450,10 +472,11 @@ export default function App(){
           <div style={{flex:1,overflowY:"auto",padding:"12px"}}>
             {!market.open&&<div style={{background:T.accentBg,border:"1px solid "+T.accentBorder,borderRadius:12,padding:"10px 14px",marginBottom:12,fontSize:12,color:T.accentDark}}>🕐 السوق مغلق — آخر أسعار إغلاق</div>}
             <div style={{marginBottom:10}}>
-              <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="ابحث عن سهم... (مثل: أرامكو أو 2222)" style={{width:"100%",background:T.card,border:"1px solid "+T.accentBorder,borderRadius:14,padding:"10px 14px",color:T.text,fontSize:13,fontFamily:"Cairo",outline:"none",boxSizing:"border-box"}}/>
+              <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 ابحث: اسم السهم أو الرقم أو القطاع" style={{width:"100%",background:T.card,border:"1.5px solid "+T.accentBorder,borderRadius:14,padding:"11px 14px",color:T.text,fontSize:13,fontFamily:"Cairo",outline:"none",boxSizing:"border-box"}}/>
+              {search.trim()&&<div style={{fontSize:11,color:T.subtext,marginTop:6,paddingRight:4}}>{filteredStocks.length} نتيجة للبحث عن "{search.trim()}"</div>}
             </div>
             <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(155px,1fr))",gap:10}}>
-              {stocks.filter(s=>!search||s.name.includes(search)||s.symbol.includes(search)||s.sector.includes(search)).map(stock=>{
+              {filteredStocks.map(stock=>{
                 const h=myStocks.find(x=>x.symbol===stock.symbol);
                 const pnl=h?(stock.current-h.buyPrice)*h.qty:null;
                 return(
