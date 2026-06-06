@@ -327,8 +327,8 @@ export default function App(){
   const filteredStocks=useMemo(()=>{
     const q=search.trim();
     if(!q)return stocks;
-    const isNum=/^\d+$/.test(q);
-    if(isNum) return stocks.filter(s=>s.symbol.startsWith(q));
+    const isNum=q.split("").every(c=>c>="0"&&c<="9");
+    if(isNum)return stocks.filter(s=>s.symbol.startsWith(q));
     return stocks.filter(s=>s.name.includes(q)||s.sector===q);
   },[stocks,search]);
     const pCtx=calc.items.length>0?"\n\nمحفظتي:\n"+calc.items.map(h=>h.name+": "+h.qty+" سهم بـ "+h.buyPrice+" والآن "+h.currentPrice?.toFixed(2)+" ("+(h.pnl>=0?"ربح":"خسارة")+" "+Math.abs(h.pnl||0).toFixed(0)+" ريال)").join("\n"):"";
@@ -358,8 +358,8 @@ export default function App(){
   const filteredStocks=useMemo(()=>{
     const q=search.trim();
     if(!q)return stocks;
-    const isNum=/^\d+$/.test(q);
-    if(isNum) return stocks.filter(s=>s.symbol.startsWith(q));
+    const isNum=q.split("").every(c=>c>="0"&&c<="9");
+    if(isNum)return stocks.filter(s=>s.symbol.startsWith(q));
     return stocks.filter(s=>s.name.includes(q)||s.sector===q);
   },[stocks,search]);
     if(!calc.items.length){setMessages(p=>[...p,{role:"assistant",content:"أضف أسهمك في تبويب محفظتي أول 👆"}]);return;}
@@ -371,8 +371,8 @@ export default function App(){
   const filteredStocks=useMemo(()=>{
     const q=search.trim();
     if(!q)return stocks;
-    const isNum=/^\d+$/.test(q);
-    if(isNum) return stocks.filter(s=>s.symbol.startsWith(q));
+    const isNum=q.split("").every(c=>c>="0"&&c<="9");
+    if(isNum)return stocks.filter(s=>s.symbol.startsWith(q));
     return stocks.filter(s=>s.name.includes(q)||s.sector===q);
   },[stocks,search]);
 
@@ -601,4 +601,3 @@ export default function App(){
     </div>
   );
 }
-ج
