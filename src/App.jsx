@@ -291,19 +291,43 @@ export default function App(){
   const buildStocks=useCallback(async()=>{
     setFetching(true);setMarket(marketStatus());
     const results=await Promise.all(STOCKS_LIST.map(async s=>{
-      // Generate realistic prices if no seed data
-      const defaultPrice = {
-        "بنوك":35,"طاقة":28,"بتروكيماويات":55,"أسمنت":22,"تجزئة":30,
-        "اتصالات":80,"تقنية":40,"تعدين":58,"عقارات":18,"غذاء":45,
-        "صحة":35,"تأمين":25,"نقل":20,"مالية":22
-      }[s.sector]||25;
-      const genPrices=(base)=>{let p=base,arr=[];for(let i=0;i<30;i++){p=Math.max(p+(Math.random()-0.49)*p*0.015,1);arr.push(parseFloat(p.toFixed(2)));}return arr;};
-      const prices=[...(SEED[s.symbol]||genPrices(defaultPrice))];
       const real=await fetchRealPrice(s.symbol);
-      if(real&&!isNaN(real.price)){setApiOk(true);prices[prices.length-1]=real.price;}
-      else if(apiOk!==true)setApiOk(false);
+      let prices;
+      if(real&&!isNaN(real.price)){
+        setApiOk(true);
+        // بناء قائمة أسعار واقعية حول السعر الحقيقي
+        const base=real.price;
+        const seed=SEED[s.symbol];
+        if(seed){
+          // عندنا بيانات تاريخية — نحدث آخر سعر فقط
+          prices=[...seed];
+          prices[prices.length-1]=base;
+        } else {
+          // نولد تاريخ سعري حول السعر الحقيقي
+          prices=[];
+          let p=base*(1+(Math.random()*0.06-0.03));
+          for(let i=0;i<29;i++){
+            p=Math.max(p+(Math.random()-0.49)*p*0.012,0.1);
+            prices.push(parseFloat(p.toFixed(2)));
+          }
+          prices.push(base);
+        }
+      } else {
+        if(apiOk!==true)setApiOk(false);
+        const seed=SEED[s.symbol];
+        if(seed){
+          prices=[...seed];
+        } else {
+          const def={"بنوك":35,"طاقة":27,"بتروكيماويات":55,"أسمنت":22,"تجزئة":30,"اتصالات":80,"تقنية":40,"تعدين":58,"عقارات":18,"غذاء":45,"صحة":35,"تأمين":25,"نقل":20,"مالية":22}[s.sector]||25;
+          prices=[];
+          let p=def;
+          for(let i=0;i<30;i++){p=Math.max(p+(Math.random()-0.49)*p*0.012,0.1);prices.push(parseFloat(p.toFixed(2)));}
+        }
+      }
       const cur=prices[prices.length-1],prev=prices[prices.length-2];
-      return{...s,prices,current:cur,change:real?real.change:parseFloat((cur-prev).toFixed(2)),changePct:real?real.changePct:parseFloat(((cur-prev)/prev*100).toFixed(2)),rsi:calcRSI(prices),ma7:calcMA(prices,7),ma20:calcMA(prices,20),signal:getSignal(prices),isReal:!!real};
+      const change=real?real.change:parseFloat((cur-prev).toFixed(2));
+      const changePct=real?real.changePct:parseFloat(((cur-prev)/(prev||1)*100).toFixed(2));
+      return{...s,prices,current:cur,change,changePct,rsi:calcRSI(prices),ma7:calcMA(prices,7),ma20:calcMA(prices,20),signal:getSignal(prices),isReal:!!real};
     }));
     setStocks(results);setFetching(false);
   },[apiOk]);
