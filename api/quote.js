@@ -1,9 +1,15 @@
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
+export const config = { runtime: 'edge' };
+
+export default async function handler(req) {
+  const url = new URL(req.url);
+  const symbol = url.searchParams.get('symbol');
   
-  const { symbol } = req.query;
-  if (!symbol) return res.status(400).json({ error: 'symbol required' });
+  if (!symbol) {
+    return new Response(JSON.stringify({ error: 'symbol required' }), { 
+      status: 400, 
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    });
+  }
 
   try {
     const r = await fetch(`https://app.sahmk.sa/api/v1/quote/${symbol}/`, {
@@ -12,10 +18,16 @@ export default async function handler(req, res) {
         'X-API-Key': process.env.VITE_SAHMK_KEY || ''
       }
     });
-    if (!r.ok) return res.status(r.status).json({ error: 'API error' });
+    
     const data = await r.json();
-    res.json(data);
+    return new Response(JSON.stringify(data), {
+      status: r.status,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    });
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    return new Response(JSON.stringify({ error: e.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    });
   }
 }
