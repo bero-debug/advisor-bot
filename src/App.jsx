@@ -248,8 +248,17 @@ function marketStatus(){
   return{open:r.getDay()>=0&&r.getDay()<=4&&r.getHours()+r.getMinutes()/60>=10&&r.getHours()+r.getMinutes()/60<15};
 }
 
+const SAHMK_KEY=(typeof import.meta!=="undefined"&&import.meta.env)?import.meta.env.VITE_SAHMK_KEY||"":"";
+
 async function fetchRealPrice(symbol){
-  try{const key=import.meta.env.VITE_SAHMK_KEY||"";const res=await fetch("https://app.sahmk.sa/api/v1/quote/"+symbol+"/",{headers:{"Accept":"application/json","X-API-Key":key}});if(!res.ok)return null;const d=await res.json();return{price:parseFloat(d.price),change:parseFloat(d.change),changePct:parseFloat(d.change_percent),volume:parseInt(d.volume)||0};}catch{return null;}
+  try{
+    const headers={"Accept":"application/json"};
+    if(SAHMK_KEY)headers["X-API-Key"]=SAHMK_KEY;
+    const res=await fetch("https://app.sahmk.sa/api/v1/quote/"+symbol+"/",{headers});
+    if(!res.ok)return null;
+    const d=await res.json();
+    return{price:parseFloat(d.price),change:parseFloat(d.change),changePct:parseFloat(d.change_percent),volume:parseInt(d.volume)||0};
+  }catch{return null;}
 }
 
 export default function App(){
@@ -601,4 +610,3 @@ export default function App(){
     </div>
   );
 }
-o
