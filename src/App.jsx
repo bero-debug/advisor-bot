@@ -290,8 +290,16 @@ export default function App(){
 
   const buildStocks=useCallback(async()=>{
     setFetching(true);setMarket(marketStatus());
+    // فقط نجيب أسعار حقيقية للأسهم الرئيسية عشان ما نثقل الـ API
+    const mainSymbols=Object.keys(SEED);
+    const realPrices={};
+    await Promise.all(mainSymbols.map(async sym=>{
+      const r=await fetchRealPrice(sym);
+      if(r)realPrices[sym]=r;
+    }));
+
     const results=await Promise.all(STOCKS_LIST.map(async s=>{
-      const real=await fetchRealPrice(s.symbol);
+      const real=realPrices[s.symbol]||null;
       let prices;
       if(real&&!isNaN(real.price)){
         setApiOk(true);
